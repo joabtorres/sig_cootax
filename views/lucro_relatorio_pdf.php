@@ -19,7 +19,7 @@
                 </p>
             </div>
             <div id="section">
-                <h2>Relatório de Lucros</h2>
+                <h2>Relatório de Entradas</h2>
                 <?php if (isset($busca) && !empty($busca)): ?>
                     <table class="table">
 

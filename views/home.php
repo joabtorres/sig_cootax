@@ -55,7 +55,7 @@
                             <div class="col-xs-12">
                                 <i class="glyphicon glyphicon-usd  fa-3x pull-left"></i>                               
                                 <div class="font-bold">Cadastrar</div>
-                                <div>Despesas</div>
+                                <div>Saídas</div>
                             </div>
                         </a>
                     </div>
@@ -116,7 +116,7 @@
                             <div class="col-xs-12">
                                 <i class="fa fa-clipboard-list fa-3x pull-left"></i>                               
                                 <div class="font-bold">Relatório</div>
-                                <div>Despesas</div>
+                                <div>Saídas</div>
                             </div>
                         </a>
                     </div>
@@ -162,7 +162,7 @@
                                 <div class="col-xs-12">
                                     <i class="fa fa-clipboard-list fa-3x pull-left"></i>                               
                                     <div class="font-bold">Relatório</div>
-                                    <div>Despesas</div>
+                                    <div>Saídas</div>
                                 </div>
                             </a>
                         </div>
@@ -346,7 +346,7 @@ echo "<script>"
                         lucro, 0
                     ]
                 }, {
-                    label: 'Despesa',
+                    label: 'Saída',
                     backgroundColor: "#f38b4a",
                     borderColor: "#f38b4a",
                     data: [

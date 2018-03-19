@@ -112,73 +112,78 @@
                                         </li>
                                         <li>
                                             <a href="<?php echo BASE_URL ?>/cadastrar/lucro"><i class="fa fa-dollar-sign"></i> Entrada (R$)</a>
-                                        <li>
-                                            <a href="<?php echo BASE_URL ?>/cadastrar/despesa"><i class="fa fa-dollar-sign"></i> Despesa (R$)</a>
                                         </li>
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/cadastrar/despesa"><i class="fa fa-dollar-sign"></i> Saída (R$)</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/cadastrar/investimento"><i class="fa fa-dollar-sign"></i> Investimento (R$)</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                <li>
-                                    <a href="<?php echo BASE_URL ?>/cadastrar/investimento"><i class="fa fa-dollar-sign"></i> Investimento (R$)</a>
-                                </li>
-                            </ul>
-                            </li>
-                        <?php endif; ?>
-                        <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#menu_relatorio"><i class="fa fa-list-ul"></i> Relatórios <i class="fa fa-fw fa-caret-down pull-right"></i></a>
-                            <ul id="menu_relatorio" class="collapse">
-                                <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 2): ?>
-                                    <li>
-                                        <a href="<?php echo BASE_URL ?>/relatorio/cooperados"><i class="fa fa-list"></i> Cooperados</a>
-                                    </li>
-                                <?php endif; ?>
-                                <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 2): ?>
-                                    <li>
-                                        <a href="<?php echo BASE_URL ?>/relatorio/mensalidades"><i class="fa fa-list"></i> Mensalidades</a>
-                                    </li>
-                                <?php endif; ?>
-                                <li>
-                                    <a href="<?php echo BASE_URL ?>/relatorio/lucros"><i class="fa fa-list"></i> Entradas (R$)</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo BASE_URL ?>/relatorio/despesas"><i class="fa fa-list"></i> Despesas (R$)</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo BASE_URL ?>/relatorio/investimentos"><i class="fa fa-list"></i> Investimentos (R$)</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="javascript:;" data-toggle="collapse" data-target="#menu_usuario"><i class="fa fa-users"></i> Usuários <i class="fa fa-fw fa-caret-down pull-right"></i></a>
-                            <ul id="menu_usuario" class="collapse">
-                                <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
-                                    <li>
-                                        <a href="<?php echo BASE_URL ?>/cadastrar/usuario"><i class="fa fa-user-plus"></i> Novo Usuário</a>
-                                    </li>
-                                <?php endif; ?>
-
-                                <li>
-                                    <a href="<?php echo BASE_URL ?>/editar/usuario/<?php echo $_SESSION['usuario_sig_cootax']['cod'] ?>"><i class="fa fa-user"></i> Editar Perfil</a>
-                                </li>
-                                <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
-                                    <li>
-                                        <a href="<?php echo BASE_URL ?>/usuario/index"><i class="fa fa-users"></i> Lista Usuários</a>
-                                    </li>
-                                <?php endif; ?>
-                            </ul>
-                        </li>
-                        <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
+                            <?php endif; ?>
                             <li>
-                                <a href="<?php echo BASE_URL . '/cooperativa/index/' . $this->getCodCooperativa() ?>"><i class="fa fa-home"></i> Cooperativa</a>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#menu_relatorio"><i class="fa fa-list-ul"></i> Relatórios <i class="fa fa-fw fa-caret-down pull-right"></i></a>
+                                <ul id="menu_relatorio" class="collapse">
+                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 2): ?>
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/relatorio/cooperados"><i class="fa fa-list"></i> Cooperados</a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 2): ?>
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/relatorio/mensalidades"><i class="fa fa-list"></i> Mensalidades</a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li>
+                                        <a href="<?php echo BASE_URL ?>/relatorio/lucros"><i class="fa fa-list"></i> Entradas (R$)</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo BASE_URL ?>/relatorio/despesas"><i class="fa fa-list"></i> Saídas (R$)</a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo BASE_URL ?>/relatorio/investimentos"><i class="fa fa-list"></i> Investimentos (R$)</a>
+                                    </li>
+                                     <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 2) : ?>
+                                    <li>
+                                        <a href="<?php echo BASE_URL ?>/relatorio/financeiro"><i class="fa fa-chart-bar"></i> Financeiro (R$)</a>
+                                    </li>
+                                    <?php endif; ?>
+                                </ul>
                             </li>
-                        <?php endif; ?>
-                        <li>
-                            <a href="<?php echo BASE_URL ?>/feedback"><i class="fa fa-comments"></i> Feedback</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo BASE_URL ?>/manual"><i class="fa fa-book"></i> Manual</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo BASE_URL ?>/usuario/sair"><i class="fa fa-sign-out-alt"></i> Sair</a>
-                        </li>
+                            <li>
+                                <a href="javascript:;" data-toggle="collapse" data-target="#menu_usuario"><i class="fa fa-users"></i> Usuários <i class="fa fa-fw fa-caret-down pull-right"></i></a>
+                                <ul id="menu_usuario" class="collapse">
+                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/cadastrar/usuario"><i class="fa fa-user-plus"></i> Novo Usuário</a>
+                                        </li>
+                                    <?php endif; ?>
+
+                                    <li>
+                                        <a href="<?php echo BASE_URL ?>/editar/usuario/<?php echo $_SESSION['usuario_sig_cootax']['cod'] ?>"><i class="fa fa-user"></i> Editar Perfil</a>
+                                    </li>
+                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/usuario/index"><i class="fa fa-users"></i> Lista Usuários</a>
+                                        </li>
+                                    <?php endif; ?>
+                                </ul>
+                            </li>
+                            <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
+                                <li>
+                                    <a href="<?php echo BASE_URL . '/cooperativa/index/' . $this->getCodCooperativa() ?>"><i class="fa fa-home"></i> Cooperativa</a>
+                                </li>
+                            <?php endif; ?>
+                            <li>
+                                <a href="<?php echo BASE_URL ?>/feedback"><i class="fa fa-comments"></i> Feedback</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo BASE_URL ?>/manual"><i class="fa fa-book"></i> Manual</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo BASE_URL ?>/usuario/sair"><i class="fa fa-sign-out-alt"></i> Sair</a>
+                            </li>
                         </ul>
                     </nav>
                     <!-- FIM SIDE-NAV-->

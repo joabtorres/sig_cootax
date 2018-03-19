@@ -1,10 +1,10 @@
 <div id="section-container">
     <div class="row" >
         <div class="col-sm-12 col-md-12 col-lg-12" id="pagina-header">
-            <h2>Editar Lucro</h2>
+            <h2>Editar Entrada</h2>
             <ol class="breadcrumb">
                 <li><a href="<?php echo BASE_URL ?>/home"><i class="fa fa-tachometer-alt"></i> Inicial</a></li>
-                <li class="active"><i class="fa fa-edit "></i> Lucro</li>
+                <li class="active"><i class="fa fa-edit "></i> Entrada</li>
             </ol>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <form autocomplete="off" method="POST" id="myFormFinanca">
                 <section class="panel panel-black">
                     <header class="panel-heading">
-                        <h4 class="panel-title"><i class="fa fa-dollar-sign pull-left"></i>Lucro</h4>
+                        <h4 class="panel-title"><i class="fa fa-dollar-sign pull-left"></i>Entrada</h4>
                     </header>
                     <article class="panel-body">
                         <div class="row">

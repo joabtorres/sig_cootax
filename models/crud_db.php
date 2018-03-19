@@ -38,12 +38,16 @@ class crud_db extends model {
      * @author Joab Torres <joabtorres1508@gmail.com>
      */
     public function create($sql_command, $data) {
-        $sql = $this->db->prepare($sql_command);
-        foreach ($data as $indice => $valor) {
-            $sql->bindValue(":" . $indice, $valor);
+        try {
+            $sql = $this->db->prepare($sql_command);
+            foreach ($data as $indice => $valor) {
+                $sql->bindValue(":" . $indice, $valor);
+            }
+            $sql->execute();
+            return true;
+        } catch (PDOException $ex) {
+            echo '<script> alert("Mensagem: ' . $ex->getMessage() . '")</script>';
         }
-        $sql->execute();
-        return true;
     }
 
     /**
@@ -111,12 +115,16 @@ class crud_db extends model {
      * @author Joab Torres <joabtorres1508@gmail.com>
      */
     public function update($sql_command, $data) {
-        $sql = $this->db->prepare($sql_command);
-        foreach ($data as $indice => $valor) {
-            $sql->bindValue(":" . $indice, $valor);
+        try {
+            $sql = $this->db->prepare($sql_command);
+            foreach ($data as $indice => $valor) {
+                $sql->bindValue(":" . $indice, $valor);
+            }
+            $sql->execute();
+            return true;
+        } catch (PDOException $ex) {
+            echo '<script> alert("Mensagem: ' . $ex->getMessage() . '")</script>';
         }
-        $sql->execute();
-        return true;
     }
 
     /**

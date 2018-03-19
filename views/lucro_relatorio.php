@@ -1,10 +1,10 @@
 <div id="section-container">
     <div class="row" >
         <div class="col-sm-12 col-md-12 col-lg-12" id="pagina-header">
-            <h2>Lucros</h2>
+            <h2>Entradas</h2>
             <ol class="breadcrumb">
                 <li><a  href="<?php echo BASE_URL ?>/home"><i class="fa fa-tachometer-alt"></i> Inicial</a></li>
-                <li class="active"><i class="fa fa-dollar-sign"></i> Relatórios de Lucros</li>
+                <li class="active"><i class="fa fa-dollar-sign"></i> Relatórios de Entradas</li>
             </ol>
         </div>
     </div>
