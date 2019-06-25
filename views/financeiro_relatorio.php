@@ -36,7 +36,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label>Gera PDF:</label><br/>
+                                    <label>Gerar PDF:</label><br/>
                                     <label><input type="radio" name="nModoPDF" value="1"/> Sim </label>
                                     <label><input type="radio" name="nModoPDF" value="0" checked="checked" /> Não </label>
                                 </div>

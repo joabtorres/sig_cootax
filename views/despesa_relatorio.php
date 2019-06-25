@@ -135,7 +135,7 @@ if (isset($financas) && is_array($financas)) :
                     </article>
                     <footer class="modal-footer">
                         <a class="btn btn-danger pull-left" href="<?php echo BASE_URL . '/excluir/despesa/' . $financa['cod'] ?>"> <i class="fa fa-trash"></i> Excluir</a> 
-                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-close-alt"></i> Fechar</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
                     </footer>
                 </section>
             </article>

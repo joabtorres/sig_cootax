@@ -6,9 +6,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/gif" href="<?php echo BASE_URL ?>/assets/imagens/icon-cootax.png" sizes="32x32" />
-        <meta property="ogg:title" content="COOTAX - SIG -Sistema de Informação Gerencial">
-        <meta property="ogg:description" content="COOTAX - SIG -Sistema de Informação Gerencial!">
-        <title> SIG - Sistema de Informação Gerencial (SIG) </title>
+        <meta property="ogg:title" content="COOTAX - SIGCOOT - Sistema de Informação Gerencial de Cooperativa de Táxi!">
+        <meta property="ogg:description" content="COOTAX - SIGCOOT - Sistema de Informação Gerencial de Cooperativa de Táxi!">
+        <title> SIGCOOT - Sistema de Informação Gerencial de Cooperativa de Táxi </title>
         <!-- Bootstrap -->
         <link href="<?php echo BASE_URL; ?>/assets/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/login.min.css">
@@ -24,7 +24,7 @@
                 }
             }
         </script>
-        <script src='https://www.google.com/recaptcha/api.js'></script>
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </head>
 
     <body onload="mostrarConteudo()"> 
@@ -36,7 +36,7 @@
                 <div class="row">
                     <!-- TELA LOGIN -->
                     <div class="col-sm-offset-1 col-sm-10 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4" id="tela_login">
-                        <h4 class="text-center text-login text-uppercase">SIG - Sistema de Informação Gerencial</h4>
+                        <h4 class="text-center text-login text-uppercase">SIGCOOT - Sistema de Informação Gerencial de Cooperativa de Táxi</h4>
                         <div class="row">
                             <div class="col-md-offset-3 col-md-6"><img src="<?php echo BASE_URL; ?>/assets/imagens/logo_login_cootax.png" alt="Logotipo da cootax" class="img-center img-login"></div>
 
@@ -92,7 +92,7 @@
 
                             <div class="row">
                                 <div class="col-md-5">
-                                    <p class="text-justify">Forneça o endereço de email usado em sua conta do SGL.</p>
+                                    <p class="text-justify">Forneça o endereço de email usado em sua conta do SIGCOOT.</p>
                                     <p class="text-justify">Será enviado um e-mail que redefine a sua senha.</p>
                                 </div>
                                 <div class="col-md-7">

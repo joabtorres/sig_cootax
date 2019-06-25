@@ -71,14 +71,14 @@ $user = array(
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
         'x' => 160,
-        'margin-bottom' => 330
+        'margin-bottom' => 328
     ),
     array(
         'name' => $cooperado['placa'],
         'font-size' => '16',
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
-        'x' => 160,
+        'x' => 190,
         'margin-bottom' => 0
     ),
     array(
@@ -87,14 +87,14 @@ $user = array(
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
         'margin-bottom' => 0,
-        'x' => 510
+        'x' => 530
     ), array(
         'name' => $cooperado['celular_1'],
         'font-size' => '14',
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
         'margin-bottom' => 42,
-        'x' => 775
+        'x' => 790
     ),
     array(
         'name' => $cooperado['nome_completo'],
@@ -102,7 +102,7 @@ $user = array(
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
         'margin-bottom' => 0,
-        'x' => 210
+        'x' => 230
     )
 );
 // run the script to create the image
@@ -130,6 +130,6 @@ $html = ob_get_contents();
 ob_end_clean();
 $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8']);
 $mpdf->WriteHTML($html);
-$arquivo = 'recibo_mensalidade' . date('d_m_Y.') . 'pdf';
-$mpdf->Output($arquivo, 'i');
+$arquivo = 'recibo_de_taxi_' . date('d_m_Y.') . 'pdf';
+$mpdf->Output($arquivo, 'D');
 ?>

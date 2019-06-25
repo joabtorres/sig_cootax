@@ -23,7 +23,7 @@ class loginController extends controller {
         $_SESSION = array();
         if (isset($_POST['nEntrar']) && !empty($_POST['nEntrar'])) {
             //recaptcha validando
-            /*$captcha_data = $_POST['g-recaptcha-response'];
+            $captcha_data = $_POST['g-recaptcha-response'];
 
             if ($captcha_data != '') {
                 $secreto = '6LfoeUwUAAAAAEwDAsbWlmlkZZkrrrj4m98BlVGZ';
@@ -74,9 +74,29 @@ class loginController extends controller {
                 }
             } else {
                 $dados['erro']['msg'] = '<i class="fa fa-info-circle" aria-hidden="true"></i> reCAPTCHA não foi selecionado!';
-            }*/
-            if (!empty($_POST['nSerachUsuario']) && !empty($_POST['nSearchSenha'])) {
+            }
+        }
+        $this->loadView($view, $dados);
 
+        //criando nova senha
+        if (isset($_POST['nEnviar'])) {
+            $email = addslashes(trim($_POST['nEmail']));
+            $_POST = null;
+            if ($this->validar_email($email) && $this->recuperar($email)) {
+                echo '<script>$("#modal_confirmacao_email").modal();</script>';
+            } else {
+                echo '<script>$("#modal_invalido_email").modal();</script>';
+            }
+        }
+    }
+
+    public function login() {
+        $view = "login";
+        $dados = array();
+        $_SESSION = array();
+        if (isset($_POST['nEntrar']) && !empty($_POST['nEntrar'])) {
+            //recaptcha validando
+            if (!empty($_POST['nSerachUsuario']) && !empty($_POST['nSearchSenha'])) {
                 $usuario = array('usuario' => addslashes($_POST['nSerachUsuario']), 'senha' => md5(sha1($_POST['nSearchSenha'])));
                 $dominio = strstr($usuario['usuario'], '@');
                 $usuarioModel = new usuario();
@@ -139,12 +159,14 @@ class loginController extends controller {
      */
     private function recuperar($email) {
         $usuarioModel = new usuario();
-        $senha = $usuarioModel->newpassword($email);
-        if ($senha) {
-            // envia email ao usuário
-            $assunto = 'Sistema de Informacao Gerencial - Nova Senha';
-            $destinatario = $email;
-            $mensagem = '<!DOCTYPE html>
+        $usuario = $usuarioModel->read_specific("SELECT nivel_acesso_usuario as nivel FROM sig_usuario where email_usuario=:email", array("email" => $email));
+        if ($usuario['nivel'] != 4) {
+            $senha = $usuarioModel->newpassword($email);
+            if ($senha) {
+                // envia email ao usuário
+                $assunto = 'Sistema de Informação Gerencial de Cooperativa de Táxi';
+                $destinatario = $email;
+                $mensagem = '<!DOCTYPE html>
 			<html lang="pt-br">
 			<head>
 				<meta charset="UTF-8">
@@ -152,9 +174,9 @@ class loginController extends controller {
 			</head>
 			<body>
 				<div style="width: 98%;display: block;margin: 10px auto;padding: 0;font-family: sans-serif, Arial;border : 2px solid #357ca5;">
-				<h3 style="background: #357ca5;color: white;padding: 10px;margin: 0;">Nova Senha! <br/> <small>' . $assunto . '</small></h3>
+				<h3 style="background: #357ca5;color: white;padding: 10px;margin: 0;">Nova Senha! <br/> <small>' . $assunto . ' - Nova Senha</small></h3>
 					<p style="padding: 10px;line-height: 30px;">
-                                            Você solicitou uma nova senha de acesso ao <b>SIG</b> (' . $assunto . '), confira abaixo sua nova senha de acesso: <br/>
+                                            Você solicitou uma nova senha de acesso ao <b>SIGCOOT</b> (' . $assunto . '), confira abaixo sua nova senha de acesso: <br/>
                                             <span style="font-weight:bold">Email: </span><span style="color: #357ca5;">' . $email . '</span><br/>
                                             <span style="font-weight:bold">Nova Senha: </span> <span style="color: #357ca5;">' . $senha . '</span><br/>
                                                  <a href="' . BASE_URL . '" style="text-decoration: none;">Carregar Página</a>
@@ -162,12 +184,15 @@ class loginController extends controller {
 				</div>
 			</body>
 			</html>';
-            $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
-            $headers .= 'From: ' . $assunto . ' <contato@kananda.imb.br>' . "\r\n";
-            $headers .= 'X-Mailer: PHP/' . phpversion();
-            mail($destinatario, $assunto, $mensagem, $headers);
-            return true;
+                $headers = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
+                $headers .= 'From: ' . $assunto . ' <contato@cootax.com.br>' . "\r\n";
+                $headers .= 'X-Mailer: PHP/' . phpversion();
+                mail($destinatario, $assunto, $mensagem, $headers);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

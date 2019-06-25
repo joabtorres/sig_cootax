@@ -5,7 +5,7 @@ function create_image($user, $url) {
     $i = 30;
     $quality = 1000;
     $largura = 1500;
-    $altura = 1482;
+    $altura = 2119;
     $height = 0;
     # $file = "uploads/operacao/recibo_temp.jpg";
     $file = "uploads/operacao/carteira_temp.jpg";
@@ -36,7 +36,7 @@ function create_image($user, $url) {
     $color['black'] = imagecolorallocate($im, 0, 0, 0);
 
     // this defines the starting height for the text block
-    $y = imagesy($im) - $height - 945;
+    $y = imagesy($im) - $height - 1360;
 
     foreach ($user as $value) {
         imagettftext($im, $value['font-size'], 0, $value['x'], $y + $i, $color[$value['color']], $fontname[$value['font-family']], $value['text']);
@@ -48,7 +48,7 @@ function create_image($user, $url) {
     }
     // create the image
     imagecopyresampled($imagemFinal, $im, 0, 0, 0, 0, $largura, $altura, $larguraOriginal, $alturaOriginal);
-    imagecopyresampled($imagemFinal, $imagem_cooperado, 38, 259, 0, 0, 327, 430, $larguraCooperado, $alturaCooperado);
+    imagecopyresampled($imagemFinal, $imagem_cooperado, 38, 403, 0, 0, 327, 430, $larguraCooperado, $alturaCooperado);
     imagejpeg($imagemFinal, $file, $quality);
 
     return $file;
@@ -66,11 +66,11 @@ function center_text($string, $font_size, $fontname) {
 $user = array(
     array(
         'text' => $cidade['nome_siglas'] . ' - ' . $cidade['nome_completo'],
-        'font-size' => '20',
+        'font-size' => '22',
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
         'x' => 200,
-        'margin-bottom' => 25
+        'margin-bottom' => 30
     ),
     array(
         'text' => $cidade['endereco'] . ' - CEP: ' . $cidade['cep'],
@@ -78,7 +78,7 @@ $user = array(
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
         'x' => 200,
-        'margin-bottom' => 25
+        'margin-bottom' => 30
     ),
     array(
         'text' => $cidade['url_site'] . ' | ' . $cidade['email'] . ' | CNPJ ' . $cidade['cnpj'],
@@ -86,7 +86,7 @@ $user = array(
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
         'x' => 200,
-        'margin-bottom' => 118
+        'margin-bottom' => 190
     ),
     array(
         'text' => $cooperado['nome_completo'],
@@ -139,7 +139,7 @@ $user = array(
         'font-size' => '18',
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
-        'margin-bottom' => 114,
+        'margin-bottom' => 75,
         'x' => 630
     ), array(
         'text' => $cooperado['nz'],
@@ -148,13 +148,27 @@ $user = array(
         'font-family' => 'ubuntu_regular',
         'margin-bottom' => 0,
         'x' => 40
-    ),
-    array(
+    ), array(
         'text' => $cooperado['tipo'],
         'font-size' => '18',
         'color' => 'black',
         'font-family' => 'ubuntu_regular',
-        'margin-bottom' => 70,
+        'margin-bottom' => 253,
+        'x' => 520
+    ), array(
+        'text' => $cooperado['genero'],
+        'font-size' => '18',
+        'color' => 'black',
+        'font-family' => 'ubuntu_regular',
+        'margin-bottom' => 0,
+        'x' => 40
+    ),
+    array(
+        'text' => $cooperado['nacionalidade'],
+        'font-size' => '18',
+        'color' => 'black',
+        'font-family' => 'ubuntu_regular',
+        'margin-bottom' => 73,
         'x' => 520
     ),
     array(
@@ -200,7 +214,7 @@ ob_start();
         <title>Carteira</title>
     </head>
     <body>
-        <img src="<?= BASE_URL . '/' . $filename; ?>" style="display:  block; margin: 3px auto; width: 350px;"/>
+        <img src="<?= BASE_URL . '/' . $filename; ?>" style="display:  block; margin: 3px auto; width: 310px;"/>
     </body>
 </html>
 <?php
@@ -208,6 +222,6 @@ $html = ob_get_contents();
 ob_end_clean();
 $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8']);
 $mpdf->WriteHTML($html);
-$arquivo = 'carteira' . date('d_m_Y.') . 'pdf';
-$mpdf->Output($arquivo, 'i');
+$arquivo = 'carteira_' . date('d_m_Y.') . 'pdf';
+$mpdf->Output($arquivo, 'I');
 ?>

@@ -12,7 +12,7 @@
     <div class="row" id="container-usuario">
         <div class="col-md-12">
             <div class="panel panel-success">
-                <div class="panel-heading"><p class="panel-title">Buscar</p></div>
+                <div class="panel-heading"><p class="panel-title"><i class="fa fa-search"></i> Painel de Busca</p></div>
                 <div class="panel-body">
                     <form method="POST" autocomplete="off">
                         <div class="row">
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2"><br/>
-                                <button type="submit" class="btn btn-warning" name="nBuscar" value="Buscar">Buscar</button>
+                                <button type="submit" class="btn btn-warning" name="nBuscar" value="Buscar"><i class=" fa fa-search"></i>  Buscar</button>
                             </div>
                         </div>
                     </form>
@@ -75,7 +75,7 @@
 </div>
 <!-- /#section-container -->
 <?php
-if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3):
+if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 3):
     if (isset($usuarios) && is_array($usuarios)) :
         foreach ($usuarios as $usuario):
             ?>
@@ -102,7 +102,7 @@ if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_co
                             </form>
                         </article>
                         <footer class="modal-footer">
-                            <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-close"></i> Fechar</button>
+                            <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
                         </footer>
                     </section>
                 </article>
@@ -129,7 +129,7 @@ if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_co
                         </article>
                         <footer class="modal-footer">
                             <a class="btn btn-danger pull-left" href="<?php echo BASE_URL . '/excluir/usuario/' . $usuario['cod_usuario'] ?>"> <i class="fa fa-trash"></i> Excluir</a> 
-                            <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-close"></i> Fechar</button>
+                            <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
                         </footer>
                     </section>
                 </article>
@@ -151,7 +151,7 @@ endif;
                 <p>Será enviado um e-mail com uma nova senha.</p>
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default pull-right"><i class="fa fa-close"></i> Fechar</button>
+                <button data-dismiss="modal" class="btn btn-default pull-right"><i class="fa fa-times"></i> Fechar</button>
             </div>
         </div>
     </div>
@@ -163,13 +163,13 @@ endif;
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary">
-                <h4>E-mail Inválido</h4>
+                <h4>Atenção</h4>
             </div>
             <div class="modal-body">
-                <p>Você informou um e-mail inválido.</p>
+                <p>Você informou um e-mail inválido ou não é permitido alterar a senha deste usuário.</p>
             </div>
             <div class="modal-footer">
-                <button data-dismiss="modal" class="btn btn-default pull-right"><i class="fa fa-close"></i> Fechar</button>
+                <button data-dismiss="modal" class="btn btn-default pull-right"><i class="fa fa-times"></i> Fechar</button>
             </div>
         </div>
     </div>

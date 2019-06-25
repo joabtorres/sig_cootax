@@ -214,7 +214,7 @@ class relatorioController extends controller {
                     $mpdf->Output($arquivo, 'D');
                 }
             } else {
-                $cooperados = $cooperadoModel->read('SELECT cooperado.cod_cooperado, cooperado.cod_cooperativa, cooperado.apelido, cooperado.nome_completo, cooperado.data_inscricao, cooperado.imagem, cooperado.tipo, veiculo.nz FROM sig_cooperado as cooperado INNER JOIN sig_cooperado_veiculo AS veiculo WHERE cooperado.cod_cooperado = veiculo.cod_cooperado');
+                $cooperados = $cooperadoModel->read('SELECT cooperado.cod_cooperado, cooperado.cod_cooperativa, cooperado.apelido, cooperado.nome_completo, cooperado.data_inscricao, cooperado.imagem, cooperado.tipo, veiculo.nz FROM sig_cooperado as cooperado INNER JOIN sig_cooperado_veiculo AS veiculo WHERE cooperado.cod_cooperado = veiculo.cod_cooperado ORDER BY cooperado.cod_cooperado ASC');
                 if (!empty($cooperados)) {
                     foreach ($cooperados as $indice => $value) {
                         $cooperados[$indice]['mensalidades'] = $cooperadoModel->read('SELECT * FROM sig_cooperado_mensalidade WHERE cod_cooperado=:cod ORDER BY ano ASC', array('cod' => addslashes($value['cod_cooperado'])));
@@ -252,7 +252,7 @@ class relatorioController extends controller {
             if (isset($_POST['nBuscar']) && !empty($_POST['nBuscar'])) {
                 $campo_buscar = array();
                 if (!empty($_POST['nDataInicial']) && !empty($_POST['nDatafinal'])) {
-                    $dados['financas'] = $crudModel->read("SELECT * FROM sig_lucro WHERE cod_cooperativa=:cod AND data BETWEEN '" . $this->formatDateBD($_POST['nDataInicial']) . "' AND '" . $this->formatDateBD($_POST['nDatafinal']) . "'", array('cod' => $this->getCodCooperativa()));
+                    $dados['financas'] = $crudModel->read("SELECT * FROM sig_lucro WHERE cod_cooperativa=:cod AND data BETWEEN '" . $this->formatDateBD($_POST['nDataInicial']) . "' AND '" . $this->formatDateBD($_POST['nDatafinal']) . "' ", array('cod' => $this->getCodCooperativa()));
                     $valor_total = 0;
                     foreach ($dados['financas'] as $financa) {
                         $valor_total += doubleval($financa['valor']);
@@ -298,7 +298,7 @@ class relatorioController extends controller {
             $view = "despesa_relatorio";
             $dados = array();
             $crudModel = new crud_db();
-            $dados['financas'] = $crudModel->read('SELECT * FROM sig_despesa WHERE cod_cooperativa=:cod', array('cod' => $this->getCodCooperativa()));
+            $dados['financas'] = $crudModel->read('SELECT * FROM sig_despesa WHERE cod_cooperativa=:cod ', array('cod' => $this->getCodCooperativa()));
             $valor_total = 0;
             if (!empty($dados['financas'])) {
                 foreach ($dados['financas'] as $financa) {
@@ -309,7 +309,7 @@ class relatorioController extends controller {
             if (isset($_POST['nBuscar']) && !empty($_POST['nBuscar'])) {
                 $campo_buscar = array();
                 if (!empty($_POST['nDataInicial']) && !empty($_POST['nDatafinal'])) {
-                    $dados['financas'] = $crudModel->read("SELECT * FROM sig_despesa WHERE cod_cooperativa=:cod AND data BETWEEN '" . $this->formatDateBD($_POST['nDataInicial']) . "' AND '" . $this->formatDateBD($_POST['nDatafinal']) . "'", array('cod' => $this->getCodCooperativa()));
+                    $dados['financas'] = $crudModel->read("SELECT * FROM sig_despesa WHERE cod_cooperativa=:cod AND data BETWEEN '" . $this->formatDateBD($_POST['nDataInicial']) . "' AND '" . $this->formatDateBD($_POST['nDatafinal']) . "' ", array('cod' => $this->getCodCooperativa()));
                     $valor_total = 0;
                     foreach ($dados['financas'] as $financa) {
                         $valor_total += doubleval($financa['valor']);
@@ -355,7 +355,7 @@ class relatorioController extends controller {
             $view = "investimento_relatorio";
             $dados = array();
             $crudModel = new crud_db();
-            $dados['financas'] = $crudModel->read('SELECT * FROM sig_investimento WHERE cod_cooperativa=:cod', array('cod' => $this->getCodCooperativa()));
+            $dados['financas'] = $crudModel->read('SELECT * FROM sig_investimento WHERE cod_cooperativa=:cod ', array('cod' => $this->getCodCooperativa()));
             $valor_total = 0;
             if (!empty($dados['financas'])) {
                 foreach ($dados['financas'] as $financa) {
@@ -366,7 +366,7 @@ class relatorioController extends controller {
             if (isset($_POST['nBuscar']) && !empty($_POST['nBuscar'])) {
                 $campo_buscar = array();
                 if (!empty($_POST['nDataInicial']) && !empty($_POST['nDatafinal'])) {
-                    $dados['financas'] = $crudModel->read("SELECT * FROM sig_investimento WHERE cod_cooperativa=:cod AND data BETWEEN '" . $this->formatDateBD($_POST['nDataInicial']) . "' AND '" . $this->formatDateBD($_POST['nDatafinal']) . "'", array('cod' => $this->getCodCooperativa()));
+                    $dados['financas'] = $crudModel->read("SELECT * FROM sig_investimento WHERE cod_cooperativa=:cod AND data BETWEEN '" . $this->formatDateBD($_POST['nDataInicial']) . "' AND '" . $this->formatDateBD($_POST['nDatafinal']) . "' ", array('cod' => $this->getCodCooperativa()));
                     $valor_total = 0;
                     foreach ($dados['financas'] as $financa) {
                         $valor_total += doubleval($financa['valor']);
@@ -414,11 +414,11 @@ class relatorioController extends controller {
             $dados['valorTotalGrafico'] = doubleval($dados['lucro']['valor']) - (doubleval($dados['despesa']['valor']) + doubleval($dados['investimento']['valor']));
 
             if (isset($_POST['nBuscar']) && !empty($_POST['nBuscar'])) {
+                $dados['modo_exibicao'] = $_POST['nModoExibicao'];
                 $campo_buscar = array();
                 $campo_buscar['data_inicial'] = $this->formatDateView(date('o-m-01'));
                 $campo_buscar['data_final'] = $this->formatDateView(date('o-m-31'));
                 $campo_buscar['modo_exibicao'] = $dados['modo_exibicao'];
-                $dados['modo_exibicao'] = $_POST['nModoExibicao'];
                 if ($dados['modo_exibicao'] == 2) {
                     $dados['financas']['lucro'] = $crudModel->read('SELECT * FROM sig_lucro WHERE cod_cooperativa=:cod AND data BETWEEN "' . date('o-m-01') . '" AND "' . date('o-m-31') . '"', array('cod' => $this->getCodCooperativa()));
                     $dados['financas']['despesa'] = $crudModel->read('SELECT * FROM sig_despesa WHERE cod_cooperativa=:cod AND data BETWEEN "' . date('o-m-01') . '" AND "' . date('o-m-31') . '"', array('cod' => $this->getCodCooperativa()));
@@ -527,5 +527,11 @@ class relatorioController extends controller {
         $graph->Add($bplot);
         $graph->Stroke($file);
     }
-
+    public function temp(){
+        $crudModel = new crud_db();
+        $cooperados = $crudModel->read("SELECT * FROM sig_cooperado ORDER BY nome_completo ASC");
+        foreach ($cooperados as $cooperado){
+            echo $cooperado['cod_cooperado'].'<br/>';
+        }
+    }
 }

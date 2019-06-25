@@ -37,7 +37,7 @@
                         </div>
                         <div class="form-group <?php echo (isset($usuario_erro['email']['class'])) ? $usuario_erro['email']['class'] : ''; ?>">
                             <label for="cEmail" class="control-label">E-mail:* <?php echo (isset($usuario_erro['email']['msg'])) ? '<small><span class="glyphicon glyphicon-remove"></span> ' . $usuario_erro['email']['msg'] . ' </small>' : ''; ?></label>
-                            <input type="email" name="nEmail" id="cEmail" class="form-control" placeholder="Exemplo: joab.alencar@prodepa.pa.gov.br" value='<?php echo isset($usuario['email']) ? $usuario['email'] : ""; ?>'/>
+                            <input type="email" name="nEmail" id="cEmail" class="form-control" placeholder="Exemplo: joab.alencar@gmail.com" value='<?php echo isset($usuario['email']) ? $usuario['email'] : ""; ?>'/>
                         </div>
                         <div class="form-group <?php echo (isset($usuario_erro['senha']['class'])) ? $usuario_erro['senha']['class'] : ''; ?>">
                             <label for="cSenha" class="control-label">Senha:* <?php echo (isset($usuario_erro['senha']['msg'])) ? '<small><span class="glyphicon glyphicon-remove"></span> ' . $usuario_erro['senha']['msg'] . ' </small>' : ''; ?></label>
@@ -51,7 +51,7 @@
                     <div class="col-md-6">
                         <div class="form-group <?php echo (isset($usuario_info['cargo']['class'])) ? $usuario_info['cargo']['class'] : ''; ?>">
                             <label for="iCargo" class="control-label">Cargo: <?php echo (isset($usuario_info['cargo']['msg'])) ? '<small><span class="fa fa-info-circle"></span> ' . $usuario_info['cargo']['msg'] . ' </small>' : ''; ?></label>
-                            <input type="text" name="nCargo" id="iCargo" class="form-control"  placeholder="Exemplo: Estagiário"/>
+                            <input type="text" name="nCargo" id="iCargo" class="form-control"  placeholder="Exemplo: Cooperado"/>
                         </div>
                         <div class="form-group">
                             <span>Sexo:</span><br/>
@@ -68,7 +68,7 @@
                                     }
                                 }
                             } else {
-                                echo '<label><input type="radio" name="nSexo" value="M" checked onclick="readDefaultURL()"/> Masculino</label>';
+                                echo '<label><input type="radio" name="nSexo" value="M" checked onclick="readDefaultURL()"/> Masculino</label> ';
                                 echo '<label><input type="radio" name="nSexo" value="F" onclick="readDefaultURL()"/> Feminino</label>';
                             }
                             ?>                                                               
@@ -101,10 +101,5 @@
         </form>
     </article><!--FIM CONTAINER-USUARIO-->
     <!--FIM .ROW-->
-
-    <div id="rodape">
-        <p class="text-right text-uppercase">&copy; Copyright 2017 - Joab Torres Alencar | DRI - GNU - DNR - NÚCLEO ITAITUBA.</p>
-    </div>
-    <!--FIM #rodape-->
 </div>
 <!-- /#section-container -->

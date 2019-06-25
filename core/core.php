@@ -46,6 +46,7 @@ class core {
      * @author Joab Torres <joabtorres1508@gmail.com>
      */
     public function run() {
+		$this->goHTTPS();
         $this->url = (isset($_GET['url']) && !empty($_GET['url'])) ? $_GET['url'] : "";
         $this->params = array();
         if (!empty($this->url) && $this->url != '/') {
@@ -90,5 +91,17 @@ class core {
             $co->loadView('404');
         }
     }
+	/**
+	 * Está função tem como objetivo:  redirecionar automaticamente o endereço HTTP para o HTTPS.
+	 * @access private
+	 * @author Joab Torres <joabtorres1508@gmail.com>
+	 */
+	private function goHTTPS() {
 
+		if(!isset($_SERVER['HTTPS']) && ENVIRONMENT == "prodution"){
+			if($_SERVER['HTTPS'] != "on" ){
+				header('Location: https://'.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']);
+			}
+		}
+	}
 }

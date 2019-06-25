@@ -177,9 +177,10 @@ form label{
         padding-bottom: 40px;
     }
 
-
     .side-nav>ul>li>a {
         width: 225px;
+        padding-top:10px;
+        padding-bottom: 10px
     }
     .side-nav li a:hover, .side-nav li a:focus {
         outline: none;
@@ -199,12 +200,12 @@ form label{
     padding: 20px 0;
 }
 .side-nav>figure>img{
-    width: 80px;
+    width: 60px;
     border: 3px solid #00a65a;
     margin-left:  10px;
     margin-right: 5px;
 }
-.side-nav>figure>figcaption{padding-top:10px; padding-bottom: 20px;}
+.side-nav>figure>figcaption{padding-top:10px; padding-bottom: 0;}
 .side-nav>figure>figcaption>p{line-height: 15px;text-transform: uppercase; font-size: 12px;}
 
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover{

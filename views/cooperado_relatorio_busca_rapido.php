@@ -13,40 +13,46 @@
     if (isset($cooperados) && is_array($cooperados)) {
         ?>
         <!--modo de exibição em bloco-->
-        <div class="row">
-            <?php
-            $qtd = 1;
-            foreach ($cooperados as $cooperado) :
-                ?>
-                <div class="col-md-4">
-                    <div class=" thumbnail">
-                        <a href="<?php echo BASE_URL . '/cooperado/index/' . $cooperado['cod_cooperado'] ?>">
-                            <img src="<?php echo!empty($cooperado['imagem']) ? BASE_URL . '/' . $cooperado['imagem'] : BASE_URL . '/assets/imagens/foto_ilustrato3x4.png' ?>" alt="SGL - Usuáio" class="img-responsive img-rounded"/>
-                        </a>
-                        <p class="text-center text-uppercase font-bold"><?php echo!empty($cooperado['nome_completo']) ? $cooperado['nome_completo'] : '' ?> <?php echo!empty($cooperado['nz']) ? '- ' . $cooperado['nz'] : '' ?></p>
-                        <p class="text-center text-capitalize">Categoria: <?php echo!empty($cooperado['tipo']) ? $cooperado['tipo'] : '' ?></p>
-                        <p class="text-center text-capitalize">Inscrição: <?php echo!empty($cooperado['data_inscricao']) ? $this->formatDateView($cooperado['data_inscricao']) : '' ?></p>
-                        <div class="caption text-center">
-                            <?php if ($this->checkUser() >= 2) { ?>
-                                <a href="<?php echo BASE_URL . '/editar/cooperado/' . $cooperado['cod_cooperado'] ?>" class="btn btn-primary btn-block btn-sm" title="Editar"><i class="fa fa-pencil-alt"></i> Editar</a> 
-                                <?php if ($this->checkUser() >= 3) { ?>
-                                    <button type="button"  class="btn btn-danger btn-block btn-sm" data-toggle="modal" data-target="#modal_cooperado_<?php echo $cooperado['cod_cooperado']; ?>" title="Excluir"> <i class="fa fa-trash"></i> Excluir</button>
-                                    <?php
-                                }
+        <?php
+        $qtd = 1;
+        $row = 1;
+        foreach ($cooperados as $cooperado) :
+            echo ($row == 1) ? ' <div class="row">' : '';
+            ?>
+            <div class="col-md-4">
+                <div class=" thumbnail">
+                    <a href="<?php echo BASE_URL . '/cooperado/index/' . $cooperado['cod_cooperado'] ?>">
+                        <img src="<?php echo!empty($cooperado['imagem']) ? BASE_URL . '/' . $cooperado['imagem'] : BASE_URL . '/assets/imagens/foto_ilustrato3x4.png' ?>" alt="SGL - Usuáio" class="img-responsive img-rounded"/>
+                    </a>
+                    <p class="text-center text-uppercase font-bold"><?php echo!empty($cooperado['nome_completo']) ? $cooperado['nome_completo'] : '' ?> <?php echo!empty($cooperado['nz']) ? '- ' . $cooperado['nz'] : '' ?></p>
+                    <p class="text-center text-capitalize">Categoria: <?php echo!empty($cooperado['tipo']) ? $cooperado['tipo'] : '' ?></p>
+                    <p class="text-center text-capitalize">Inscrição: <?php echo!empty($cooperado['data_inscricao']) ? $this->formatDateView($cooperado['data_inscricao']) : '' ?></p>
+                    <div class="caption text-center">
+                        <?php if ($this->checkUser() >= 2) { ?>
+                            <a href="<?php echo BASE_URL . '/editar/cooperado/' . $cooperado['cod_cooperado'] ?>" class="btn btn-primary btn-block btn-sm" title="Editar"><i class="fa fa-pencil-alt"></i> Editar</a> 
+                            <?php if ($this->checkUser() >= 3) { ?>
+                                <button type="button"  class="btn btn-danger btn-block btn-sm" data-toggle="modal" data-target="#modal_cooperado_<?php echo $cooperado['cod_cooperado']; ?>" title="Excluir"> <i class="fa fa-trash"></i> Excluir</button>
+                                <?php
                             }
-                            ?>
-                        </div>
+                        }
+                        ?>
                     </div>
                 </div>
-                <?php
-                ++$qtd;
-            endforeach;
-            ?>
-        </div>
-        <!--fim modo de exibição em bloco-->
+            </div>
         <?php
-    } else {
-        echo '<div class="row">
+        echo ($row == 3) ? '</div>' : '';
+        if ($row >= 3) {
+            $row = 1;
+        } else {
+            $row++;
+        }
+        ++$qtd;
+    endforeach;
+    ?>
+    <!--fim modo de exibição em bloco-->
+    <?php
+} else {
+    echo '<div class="row">
                 <div class="col-md-12">
                     <div class="alert alert-danger alert-dismissible fade in" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -54,8 +60,8 @@
                     </div>
                 </div>
             </div>';
-    }
-    ?>
+}
+?>
 </div>
 
 
@@ -82,7 +88,7 @@ if (isset($cooperados) && is_array($cooperados)) :
                     </article>
                     <footer class="modal-footer">
                         <a class="btn btn-danger pull-left" href="<?php echo BASE_URL . '/excluir/cooperado/' . $cooperado['cod_cooperado'] ?>"> <i class="fa fa-trash"></i> Excluir</a> 
-                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-close-alt"></i> Fechar</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-times-alt"></i> Fechar</button>
                     </footer>
                 </section>
             </article>

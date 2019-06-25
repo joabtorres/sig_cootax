@@ -38,54 +38,58 @@ class cooperado extends model {
      * @author Joab Torres <joabtorres1508@gmail.com>
      */
     public function create($data) {
-        $sql = $this->db->prepare('INSERT INTO sig_cooperado (cod_cooperado, cod_cooperativa, tipo, status, apelido, nome_completo, cpf, rg, cnh, cat, inss, estado_civil, nacionalidade, genero, data_nascimento, data_inscricao, pai, mae, conjugue, filhos, imagem) VALUES  (:cod_cooperado, :cod_cooperativa, :tipo, :status, :apelido, :nome_completo, :cpf, :rg, :cnh, :cat, :inss, :estado_civil, :nacionalidade, :genero, :data_nascimento, :data_inscricao, :pai, :mae, :conjugue, :filhos, :imagem)');
-        $sql->bindValue(":cod_cooperado", $data['cooperado']['cod_cooperado']);
-        $sql->bindValue(":cod_cooperativa", $data['cooperado']['cod_cooperativa']);
-        $sql->bindValue(":tipo", $data['cooperado']['tipo']);
-        $sql->bindValue(":status", $data['cooperado']['status']);
-        $sql->bindValue(":apelido", $data['cooperado']['apelido']);
-        $sql->bindValue(":nome_completo", $data['cooperado']['nome_completo']);
-        $sql->bindValue(":cpf", $data['cooperado']['cpf']);
-        $sql->bindValue(":rg", $data['cooperado']['rg']);
-        $sql->bindValue(":cnh", $data['cooperado']['cnh']);
-        $sql->bindValue(":cat", $data['cooperado']['cat']);
-        $sql->bindValue(":inss", $data['cooperado']['inss']);
-        $sql->bindValue(":estado_civil", $data['cooperado']['estado_civil']);
-        $sql->bindValue(":nacionalidade", $data['cooperado']['nacionalidade']);
-        $sql->bindValue(":genero", $data['cooperado']['genero']);
-        $sql->bindValue(":data_nascimento", $data['cooperado']['data_nascimento']);
-        $sql->bindValue(":data_inscricao", $data['cooperado']['data_inscricao']);
-        $sql->bindValue(":pai", $data['cooperado']['pai']);
-        $sql->bindValue(":mae", $data['cooperado']['mae']);
-        $sql->bindValue(":conjugue", $data['cooperado']['conjugue']);
-        $sql->bindValue(":filhos", $data['cooperado']['filhos']);
-        $sql->bindValue(":imagem", $data['cooperado']['imagem']);
-        //endereço
-        $sql->execute();
-        $sql = $this->db->prepare('INSERT INTO sig_cooperado_endereco (cod_cooperado, logradouro, numero, bairro, complemento, cidade, estado, cep) VALUES (:cod_cooperado, :logradouro, :numero, :bairro, :complemento, :cidade, :estado, :cep);');
-        foreach ($data['endereco'] as $indice => $valor) {
-            $sql->bindValue(":" . $indice, $valor);
+        try {
+            $sql = $this->db->prepare('INSERT INTO sig_cooperado (cod_cooperado, cod_cooperativa, tipo, status, apelido, nome_completo, cpf, rg, cnh, cat, inss, estado_civil, nacionalidade, genero, data_nascimento, data_inscricao, pai, mae, conjugue, filhos, imagem) VALUES  (:cod_cooperado, :cod_cooperativa, :tipo, :status, :apelido, :nome_completo, :cpf, :rg, :cnh, :cat, :inss, :estado_civil, :nacionalidade, :genero, :data_nascimento, :data_inscricao, :pai, :mae, :conjugue, :filhos, :imagem)');
+            $sql->bindValue(":cod_cooperado", $data['cooperado']['cod_cooperado']);
+            $sql->bindValue(":cod_cooperativa", $data['cooperado']['cod_cooperativa']);
+            $sql->bindValue(":tipo", $data['cooperado']['tipo']);
+            $sql->bindValue(":status", $data['cooperado']['status']);
+            $sql->bindValue(":apelido", $data['cooperado']['apelido']);
+            $sql->bindValue(":nome_completo", $data['cooperado']['nome_completo']);
+            $sql->bindValue(":cpf", $data['cooperado']['cpf']);
+            $sql->bindValue(":rg", $data['cooperado']['rg']);
+            $sql->bindValue(":cnh", $data['cooperado']['cnh']);
+            $sql->bindValue(":cat", $data['cooperado']['cat']);
+            $sql->bindValue(":inss", $data['cooperado']['inss']);
+            $sql->bindValue(":estado_civil", $data['cooperado']['estado_civil']);
+            $sql->bindValue(":nacionalidade", $data['cooperado']['nacionalidade']);
+            $sql->bindValue(":genero", $data['cooperado']['genero']);
+            $sql->bindValue(":data_nascimento", $data['cooperado']['data_nascimento']);
+            $sql->bindValue(":data_inscricao", $data['cooperado']['data_inscricao']);
+            $sql->bindValue(":pai", $data['cooperado']['pai']);
+            $sql->bindValue(":mae", $data['cooperado']['mae']);
+            $sql->bindValue(":conjugue", $data['cooperado']['conjugue']);
+            $sql->bindValue(":filhos", $data['cooperado']['filhos']);
+            $sql->bindValue(":imagem", $data['cooperado']['imagem']);
+            //endereço
+            $sql->execute();
+            $sql = $this->db->prepare('INSERT INTO sig_cooperado_endereco (cod_cooperado, logradouro, numero, bairro, complemento, cidade, estado, cep) VALUES (:cod_cooperado, :logradouro, :numero, :bairro, :complemento, :cidade, :estado, :cep);');
+            foreach ($data['endereco'] as $indice => $valor) {
+                $sql->bindValue(":" . $indice, $valor);
+            }
+            $sql->execute();
+            //contato
+            $sql = $this->db->prepare('INSERT INTO sig_cooperado_contato (cod_cooperado, celular_1, celular_2, email) VALUES (:cod_cooperado, :celular_1, :celular_2, :email);');
+            foreach ($data['contato'] as $indice => $valor) {
+                $sql->bindValue(":" . $indice, $valor);
+            }
+            $sql->execute();
+            //veiculo
+            $sql = $this->db->prepare('INSERT INTO sig_cooperado_veiculo (cod_cooperado, nz, veiculo, cor, placa, ano_modelo) VALUES (:cod_cooperado, :nz, :veiculo, :cor, :placa, :ano_modelo)');
+            foreach ($data['veiculo'] as $indice => $valor) {
+                $sql->bindValue(":" . $indice, $valor);
+            }
+            $sql->execute();
+            //carteira
+            $sql = $this->db->prepare('INSERT INTO sig_cooperado_carteira (cod_cooperado, data_inicial, data_validade) VALUES (:cod_cooperado, :data_inicial, :data_validade)');
+            foreach ($data['carteira'] as $indice => $valor) {
+                $sql->bindValue(":" . $indice, $valor);
+            }
+            $sql->execute();
+            return true;
+        } catch (PDOException $ex) {
+            echo '<script>alert("' . $ex->getMessage() . '")</script>';
         }
-        $sql->execute();
-        //contato
-        $sql = $this->db->prepare('INSERT INTO sig_cooperado_contato (cod_cooperado, celular_1, celular_2, email) VALUES (:cod_cooperado, :celular_1, :celular_2, :email);');
-        foreach ($data['contato'] as $indice => $valor) {
-            $sql->bindValue(":" . $indice, $valor);
-        }
-        $sql->execute();
-        //veiculo
-        $sql = $this->db->prepare('INSERT INTO sig_cooperado_veiculo (cod_cooperado, nz, veiculo, cor, placa, ano_modelo) VALUES (:cod_cooperado, :nz, :veiculo, :cor, :placa, :ano_modelo)');
-        foreach ($data['veiculo'] as $indice => $valor) {
-            $sql->bindValue(":" . $indice, $valor);
-        }
-        $sql->execute();
-        //carteira
-        $sql = $this->db->prepare('INSERT INTO sig_cooperado_carteira (cod_cooperado, data_inicial, data_validade) VALUES (:cod_cooperado, :data_inicial, :data_validade)');
-        foreach ($data['carteira'] as $indice => $valor) {
-            $sql->bindValue(":" . $indice, $valor);
-        }
-        $sql->execute();
-        return true;
     }
 
     /**
@@ -242,7 +246,7 @@ class cooperado extends model {
      * @author Joab Torres <joabtorres1508@gmail.com>
      */
     public function delete_image($url_image) {
-        if (!($url_image == 'uploads/usuarios/user_masculino.png' || $url_image == "uploads/usuarios/user_feminino.png") && file_exists($url_image)) {
+        if (file_exists($url_image)) {
             unlink($url_image);
             return true;
         } else {

@@ -451,7 +451,7 @@ class EditarController extends controller {
      */
     public function usuario($cod) {
 
-        if (($this->checkUser() && $cod == $_SESSION['usuario_sig_cootax']['cod']) || ($this->checkUser() == 3)) {
+        if (($this->checkUser() && $cod == $_SESSION['usuario_sig_cootax']['cod']) || ($this->checkUser() >= 3)) {
             $view = "usuario_editar";
             $dados = array();
             $usuarioModel = new usuario();
@@ -462,106 +462,112 @@ class EditarController extends controller {
                 $dados['usuario'] = $result_usuario;
 
                 if (isset($_POST['nSalvar'])) {
-                    //codigo
-                    $usuario = array('cod_usuario' => addslashes(trim($_POST['nCodUsuario'])));
-                    //nome
-                    if (!empty($_POST['nNome'])) {
-                        $usuario['nome_usuario'] = addslashes($_POST['nNome']);
-                    } else {
-                        $dados['usuario_erro']['nome']['msg'] = 'Informe o nome';
-                        $dados['usuario_erro']['nome']['class'] = 'has-error';
-                    }
-                    //sobrenome
-                    if (!empty($_POST['nSobrenome'])) {
-                        $usuario['sobrenome_usuario'] = addslashes($_POST['nSobrenome']);
-                    } else {
-                        $dados['usuario_erro']['sobrenome']['msg'] = 'Informe o sobrenome';
-                        $dados['usuario_erro']['sobrenome']['class'] = 'has-error';
-                    }
-                    //sobrenome
-                    if (!empty($_POST['nUsuario'])) {
-                        $usuario['usuario_usuario'] = addslashes($_POST['nUsuario']);
-                        if ($usuarioModel->read_specific('SELECT * FROM sig_usuario WHERE usuario_usuario=:usuario AND cod_usuario != :cod ', array('usuario' => $usuario['usuario_usuario'], 'cod' => $usuario['cod_usuario']))) {
-                            $dados['usuario_erro']['usuario']['msg'] = 'usuário já cadastrado';
-                            $dados['usuario_erro']['usuario']['class'] = 'has-error';
-                            $dados['erro']['msg'] = '<i class="fa fa-info-circle" aria-hidden="true"></i> Não é possível alterar um usuario para um nome de usuário já cadastrado, por favor informe outro nome de usuário';
-                            $dados['erro']['class'] = 'alert-danger';
-                            $usuario['usuario'] = null;
-                        }
-                    } else {
-                        $dados['usuario_erro']['usuario']['msg'] = 'Informe o usuário';
-                        $dados['usuario_erro']['usuario']['class'] = 'has-error';
-                    }
-                    //senha
-                    if (!empty($_POST['nSenha']) && !empty($_POST['nRepetirSenha'])) {
-                        //senha
-                        if ($_POST['nSenha'] == $_POST['nRepetirSenha']) {
-                            $usuario['senha_usuario'] = addslashes($_POST['nSenha']);
+                    if ($this->checkUser() != 4) {
+                        //codigo
+                        $usuario = array('cod_usuario' => addslashes(trim($_POST['nCodUsuario'])));
+                        //nome
+                        if (!empty($_POST['nNome'])) {
+                            $usuario['nome_usuario'] = addslashes($_POST['nNome']);
                         } else {
-                            $dados['usuario_erro']['senha']['msg'] = "Os campos 'Nova Senha' e 'Repetir Nova Senha' não estão iguais! ";
-                            $dados['usuario_erro']['senha']['class'] = 'has-error';
+                            $dados['usuario_erro']['nome']['msg'] = 'Informe o nome';
+                            $dados['usuario_erro']['nome']['class'] = 'has-error';
                         }
-                    }
-                    //cargo
-                    if (!empty($_POST['nCargo'])) {
-                        $usuario['cargo_usuario'] = addslashes($_POST['nCargo']);
-                    } else {
-                        $dados['usuario_info']['cargo']['msg'] = 'Informe o cargo, senão não será exibido o cargo';
-                        $dados['usuario_info']['cargo']['class'] = 'has-warning';
-                    }
-                    //sexo
-                    $usuario['genero_usuario'] = addslashes($_POST['nSexo']);
+                        //sobrenome
+                        if (!empty($_POST['nSobrenome'])) {
+                            $usuario['sobrenome_usuario'] = addslashes($_POST['nSobrenome']);
+                        } else {
+                            $dados['usuario_erro']['sobrenome']['msg'] = 'Informe o sobrenome';
+                            $dados['usuario_erro']['sobrenome']['class'] = 'has-error';
+                        }
+                        //sobrenome
+                        if (!empty($_POST['nUsuario'])) {
+                            $usuario['usuario_usuario'] = addslashes($_POST['nUsuario']);
+                            if ($usuarioModel->read_specific('SELECT * FROM sig_usuario WHERE usuario_usuario=:usuario AND cod_usuario != :cod ', array('usuario' => $usuario['usuario_usuario'], 'cod' => $usuario['cod_usuario']))) {
+                                $dados['usuario_erro']['usuario']['msg'] = 'usuário já cadastrado';
+                                $dados['usuario_erro']['usuario']['class'] = 'has-error';
+                                $dados['erro']['msg'] = '<i class="fa fa-info-circle" aria-hidden="true"></i> Não é possível alterar um usuario para um nome de usuário já cadastrado, por favor informe outro nome de usuário';
+                                $dados['erro']['class'] = 'alert-danger';
+                                $usuario['usuario'] = null;
+                            }
+                        } else {
+                            $dados['usuario_erro']['usuario']['msg'] = 'Informe o usuário';
+                            $dados['usuario_erro']['usuario']['class'] = 'has-error';
+                        }
+                        //senha
+                        if (!empty($_POST['nSenha']) && !empty($_POST['nRepetirSenha'])) {
+                            //senha
+                            if ($_POST['nSenha'] == $_POST['nRepetirSenha']) {
+                                $usuario['senha_usuario'] = addslashes($_POST['nSenha']);
+                            } else {
+                                $dados['usuario_erro']['senha']['msg'] = "Os campos 'Nova Senha' e 'Repetir Nova Senha' não estão iguais! ";
+                                $dados['usuario_erro']['senha']['class'] = 'has-error';
+                            }
+                        }
+                        //cargo
+                        if (!empty($_POST['nCargo'])) {
+                            $usuario['cargo_usuario'] = addslashes($_POST['nCargo']);
+                        } else {
+                            $dados['usuario_info']['cargo']['msg'] = 'Informe o cargo, senão não será exibido o cargo';
+                            $dados['usuario_info']['cargo']['class'] = 'has-warning';
+                        }
+                        //sexo
+                        $usuario['genero_usuario'] = addslashes($_POST['nSexo']);
 
-                    //nivel de acesso
-                    if (!empty($_POST['tNivelDeAcesso'])) {
-                        $usuario['nivel_acesso_usuario'] = addslashes($_POST['tNivelDeAcesso']);
-                    } else {
-                        $usuario['nivel_acesso_usuario'] = $result_usuario['nivel_acesso_usuario'];
-                    }
-                    //status
-                    if (isset($_POST['nStatuUsuario']) && !empty($_POST['nStatuUsuario'])) {
-                        $usuario['status_usuario'] = addslashes($_POST['nStatuUsuario']);
-                    } else {
-                        $usuario['status_usuario'] = 0;
-                    }
+                        //nivel de acesso
+                        if (!empty($_POST['tNivelDeAcesso'])) {
+                            $usuario['nivel_acesso_usuario'] = addslashes($_POST['tNivelDeAcesso']);
+                        } else {
+                            $usuario['nivel_acesso_usuario'] = $result_usuario['nivel_acesso_usuario'];
+                        }
+                        //status
+                        if (isset($_POST['nStatuUsuario']) && !empty($_POST['nStatuUsuario'])) {
+                            $usuario['status_usuario'] = addslashes($_POST['nStatuUsuario']);
+                        } else {
+                            $usuario['status_usuario'] = 0;
+                        }
 
 
-                    //imagem
-                    if (isset($_FILES['tImagem-1']) && $_FILES['tImagem-1']['error'] == 0) {
-                        $usuario['imagem_usuario'] = $_FILES['tImagem-1'];
-                        $usuario['img_atual'] = $result_usuario['imagem_usuario'];
-                    } else if (!empty($_POST['nImagem-user'])) {
-                        $usuario['imagem_usuario'] = addslashes($_POST['nImagem-user']);
-                    } else {
-                        $usuario['imagem_usuario'] = $result_usuario['imagem_usuario'];
-                        $usuario['delete_img'] = true;
-                    }
+                        //imagem
+                        if (isset($_FILES['tImagem-1']) && $_FILES['tImagem-1']['error'] == 0) {
+                            $usuario['imagem_usuario'] = $_FILES['tImagem-1'];
+                            $usuario['img_atual'] = $result_usuario['imagem_usuario'];
+                        } else if (!empty($_POST['nImagem-user'])) {
+                            $usuario['imagem_usuario'] = addslashes($_POST['nImagem-user']);
+                        } else {
+                            $usuario['imagem_usuario'] = $result_usuario['imagem_usuario'];
+                            $usuario['delete_img'] = true;
+                        }
 
-                    if (isset($dados['usuario_erro']) && !empty($dados['usuario_erro'])) {
-                        $dados['erro']['msg'] = '<i class="fa fa-info-circle" aria-hidden="true"></i> Preencha todos os campos obrigatórios (*).';
+                        if (isset($dados['usuario_erro']) && !empty($dados['usuario_erro'])) {
+                            $dados['erro']['msg'] = '<i class="fa fa-info-circle" aria-hidden="true"></i> Preencha todos os campos obrigatórios (*).';
+                            $dados['erro']['class'] = 'alert-danger';
+                        } else {
+                            $resultado = $usuarioModel->update($usuario);
+                            $dados['usuario'] = $resultado;
+
+                            //SE O USUÁRIO EM EDIÇÃO E O MESMO QUE ESTÁ LOGADO NO SITEMA ELE VAI ALTERAR OS DADOS DO USUÁRIO LOGADO
+                            if ($cod == $_SESSION['usuario_sig_cootax']['cod'] && !empty($resultado)) {
+                                //nome
+                                $_SESSION['usuario_sig_cootax']['nome'] = $resultado['nome_usuario'];
+                                //sobrenome
+                                $_SESSION['usuario_sig_cootax']['sobrenome'] = $resultado['sobrenome_usuario'];
+                                //cargo
+                                $_SESSION['usuario_sig_cootax']['cargo'] = $resultado['cargo_usuario'];
+                                //img
+                                $_SESSION['usuario_sig_cootax']['imagem'] = $resultado['imagem_usuario'];
+                                //nivel
+                                $_SESSION['usuario_sig_cootax']['nivel'] = $resultado['nivel_acesso_usuario'];
+                                //statu
+                                $_SESSION['usuario_sig_cootax']['statu'] = $resultado['status_usuario'];
+                            }
+
+                            $dados['erro']['msg'] = '<i class="fa fa-check" aria-hidden="true"></i> Alteração realizada com sucesso!';
+                            $dados['erro']['class'] = 'alert-success';
+                            $_POST = array();
+                        }
+                    } else {
+                        $dados['erro']['msg'] = '<i class="fa fa-info-circle" aria-hidden="true"></i> Este usuário não pode ser alterado.';
                         $dados['erro']['class'] = 'alert-danger';
-                    } else {
-                        $resultado = $usuarioModel->update($usuario);
-                        $dados['usuario'] = $resultado;
-
-                        //SE O USUÁRIO EM EDIÇÃO E O MESMO QUE ESTÁ LOGADO NO SITEMA ELE VAI ALTERAR OS DADOS DO USUÁRIO LOGADO
-                        if ($cod == $_SESSION['usuario_sig_cootax']['cod'] && !empty($resultado)) {
-                            //nome
-                            $_SESSION['usuario_sig_cootax']['nome'] = $resultado['nome_usuario'];
-                            //sobrenome
-                            $_SESSION['usuario_sig_cootax']['sobrenome'] = $resultado['sobrenome_usuario'];
-                            //cargo
-                            $_SESSION['usuario_sig_cootax']['cargo'] = $resultado['cargo_usuario'];
-                            //img
-                            $_SESSION['usuario_sig_cootax']['imagem'] = $resultado['imagem_usuario'];
-                            //nivel
-                            $_SESSION['usuario_sig_cootax']['nivel'] = $resultado['nivel_acesso_usuario'];
-                            //statu
-                            $_SESSION['usuario_sig_cootax']['statu'] = $resultado['status_usuario'];
-                        }
-
-                        $dados['erro']['msg'] = '<i class="fa fa-check" aria-hidden="true"></i> Alteração realizada com sucesso!';
-                        $dados['erro']['class'] = 'alert-success';
                         $_POST = array();
                     }
                 }
@@ -571,6 +577,113 @@ class EditarController extends controller {
             }
         } else {
             header('Location: /home');
+        }
+    }
+
+    /**
+     * Está função pertence a uma action do controle MVC, ela é responsável para editar e validar os campos preenchidos pelo motorista e carregar a view "cootaxiapp_motorista_cadastrar.php";
+     * @param string $cod - código do motorista registrada no banco do firebase
+     * @access public
+     * @author Joab Torres <joabtorres1508@gmail.com>
+     */
+    public function motorista($cod) {
+        if ($this->checkUser() >= 3) {
+            $view = "cootaxiapp_motorista_editar";
+            $dados = array();
+            $motorista = array();
+            $testLogico = false;
+            if (isset($_POST['nSalvar'])) {
+                $motorista['id'] = addslashes($cod);
+                //nome
+                if (!empty($_POST['nNomeCompleto'])) {
+                    $motorista['nome'] = addslashes($_POST['nNomeCompleto']);
+                } else {
+                    $dados['motorista_erro']['nome']['msg'] = 'Informe o nome completo';
+                    $dados['motorista_erro']['nome']['class'] = 'has-error';
+                }
+                //email
+                if (!empty($_POST['nEmail'])) {
+                    $motorista['email'] = strtolower(addslashes($_POST['nEmail']));
+                } else {
+                    $dados['motorista_erro']['email']['msg'] = 'Informe o email';
+                    $dados['motorista_erro']['email']['class'] = 'has-error';
+                }
+                //senha
+
+                $motorista['senha'] = addslashes($_POST['nSenha']);
+                if (!empty($_POST['nNovaSenha'])) {
+                    $motorista['nova_senha'] = addslashes($_POST['nNovaSenha']);
+                    //repetir senha
+                    if (!empty($_POST['nRepetirSenha'])) {
+                        $motorista['repetirSenha'] = addslashes($_POST['nRepetirSenha']);
+
+                        if ($motorista['nova_senha'] != $motorista['repetirSenha']) {
+                            $dados['motorista_erro']['senha']['msg'] = "Os campos 'Senha' e 'Repetir Senha' não estão iguais! ";
+                            $dados['motorista_erro']['senha']['class'] = 'has-error';
+                            $dados['motorista_erro']['repetirSenha']['msg'] = "Os campos 'Senha' e 'Repetir Senha' não estão iguais! ";
+                            $dados['motorista_erro']['repetirSenha']['class'] = 'has-error';
+                        }
+                    } else {
+                        $dados['motorista_erro']['repetirSenha']['msg'] = 'Repita a senha';
+                        $dados['motorista_erro']['repetirSenha']['class'] = 'has-error';
+                    }
+                } else {
+                    $motorista['nova_senha'] = null;
+                }
+                //repetir nz do veiculo
+                if (!empty($_POST['nNz'])) {
+                    $motorista['nz'] = strtoupper(addslashes($_POST['nNz']));
+                } else {
+                    $dados['motorista_erro']['nz']['msg'] = 'Informe a NZ do veículo';
+                    $dados['motorista_erro']['nz']['class'] = 'has-error';
+                }
+                //repetir modelo do veiculo
+                if (!empty($_POST['nModVeiculo'])) {
+                    $motorista['mod_veiculo'] = strtoupper(addslashes($_POST['nModVeiculo']));
+                } else {
+                    $dados['motorista_erro']['mod_veiculo']['msg'] = 'Informe o modelo do veículo';
+                    $dados['motorista_erro']['mod_veiculo']['class'] = 'has-error';
+                }
+                //repetir placa do veiculo
+                if (!empty($_POST['nPlacaVeiculo'])) {
+                    $motorista['placa_veiculo'] = strtoupper(addslashes($_POST['nPlacaVeiculo']));
+                } else {
+                    $dados['motorista_erro']['placa_veiculo']['msg'] = 'Informe a placa do veículo';
+                    $dados['motorista_erro']['placa_veiculo']['class'] = 'has-error';
+                }
+                //status
+                $motorista['status'] = addslashes($_POST['nStatus']);
+
+
+                $dados['motorista'] = $motorista;
+                if (isset($dados['motorista_erro']) && !empty($dados['motorista_erro'])) {
+                    $dados['erro']['msg'] = '<i class="fa fa-info-circle" aria-hidden="true"></i> Preencha todos os campos obrigatórios (*).';
+                    $dados['erro']['class'] = 'alert-danger';
+                } else {
+                    $testLogico = true;
+                    $dados["motorista"] = array();
+                    $dados['erro']['msg'] = '<i class="fa fa-check" aria-hidden="true"></i> Alteração realizada com sucesso!';
+                    $dados['erro']['class'] = 'alert-success oculta';
+                    $_POST = array();
+                    echo "<script> var motorista ={"
+                    . "id: '" . $motorista['id'] . "',"
+                    . "nome: '" . $motorista['nome'] . "',"
+                    . "email: '" . $motorista['email'] . "',"
+                    . "senha: '" . $motorista['senha'] . "',"
+                    . "nova_senha: '" . $motorista['nova_senha'] . "',"
+                    . "nz: '" . $motorista['nz'] . "',"
+                    . "mod_veiculo: '" . $motorista['mod_veiculo'] . "',"
+                    . "placa_veiculo: '" . $motorista['placa_veiculo'] . "',"
+                    . "status: '" . $motorista['status'] . "'}</script>";
+                }
+            }
+            echo "<script>var cod='$cod'</script>";
+            $this->loadTemplate($view, $dados);
+            if ($testLogico) {
+                echo "<script>validarEdicao()</script>";
+            }
+        } else {
+            header("Location: /home");
         }
     }
 

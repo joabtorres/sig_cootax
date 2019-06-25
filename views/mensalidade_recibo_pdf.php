@@ -63,7 +63,7 @@ Referente ao mês de ' . $meses[$i],
             'x' => 110
         ),
         array(
-            'name' => 'JOAB TORRES ALENCAR',
+            'name' => $recibo['cooperado'],
             'font-size' => '14',
             'color' => 'black',
             'font-family' => 'ubuntu_regular',
@@ -79,7 +79,7 @@ Data de Pagamento ___/____/' . date('o'),
             'margin-bottom' => 70,
             'x' => 110
         ), array(
-            'name' => 'NZ 0042 aux',
+            'name' => $recibo['nz'],
             'font-size' => '10',
             'color' => 'black',
             'font-family' => 'ubuntu_regular',
@@ -115,6 +115,6 @@ $html = ob_get_contents();
 ob_end_clean();
 $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8']);
 $mpdf->WriteHTML($html);
-$arquivo = 'recibo_mensalidade' . date('d_m_Y.') . 'pdf';
+$arquivo = 'recibo_mensalidade_' . date('d_m_Y.') . 'pdf';
 $mpdf->Output($arquivo, 'D');
 ?>

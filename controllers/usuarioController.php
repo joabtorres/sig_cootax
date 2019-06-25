@@ -64,13 +64,14 @@ class usuarioController extends controller {
      * 
      */
     private function recuperar($email) {
-        $usuarioModel = new usuario();
-        $senha = $usuarioModel->newpassword($email);
-        if ($senha) {
-            // envia email ao usuário
-            $assunto = 'Sistema de Informação Gerencial - Nova Senha';
-            $destinatario = $email;
-            $mensagem = '<!DOCTYPE html>
+        if ($this->checkUser() != 4) {
+            $usuarioModel = new usuario();
+            $senha = $usuarioModel->newpassword($email);
+            if ($senha) {
+                // envia email ao usuário
+                $assunto = 'Sistema de Informação Gerencial de Cooperativa de Táxi';
+                $destinatario = $email;
+                $mensagem = '<!DOCTYPE html>
 			<html lang="pt-br">
 			<head>
 				<meta charset="UTF-8">
@@ -78,9 +79,9 @@ class usuarioController extends controller {
 			</head>
 			<body>
 				<div style="width: 98%;display: block;margin: 10px auto;padding: 0;font-family: sans-serif, Arial;border : 2px solid #357ca5;">
-				<h3 style="background: #357ca5;color: white;padding: 10px;margin: 0;">Nova Senha! <br/> <small>' . $assunto . '</small></h3>
+				<h3 style="background: #357ca5;color: white;padding: 10px;margin: 0;">Nova Senha! <br/> <small>' . $assunto . ' - Nova Senha</small></h3>
 					<p style="padding: 10px;line-height: 30px;">
-                                            Você solicitou uma nova senha de acesso ao <b>SIG</b> (' . $assunto . '), confira abaixo sua nova senha de acesso: <br/>
+                                            Você solicitou uma nova senha de acesso ao <b>SIGCOOT</b> (' . $assunto . '), confira abaixo sua nova senha de acesso: <br/>
                                             <span style="font-weight:bold">Email: </span><span style="color: #357ca5;">' . $email . '</span><br/>
                                             <span style="font-weight:bold">Nova Senha: </span> <span style="color: #357ca5;">' . $senha . '</span><br/>
                                                  <a href="' . BASE_URL . '" style="text-decoration: none;">Carregar Página</a>
@@ -88,12 +89,15 @@ class usuarioController extends controller {
 				</div>
 			</body>
 			</html>';
-            $headers = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
-            $headers .= 'From: ' . $assunto . ' <contato@kananda.imb.br>' . "\r\n";
-            $headers .= 'X-Mailer: PHP/' . phpversion();
-            mail($destinatario, $assunto, $mensagem, $headers);
-            return true;
+                $headers = 'MIME-Version: 1.0' . "\r\n";
+                $headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
+                $headers .= 'From: ' . $assunto . ' <contato@cootax.com.br>' . "\r\n";
+                $headers .= 'X-Mailer: PHP/' . phpversion();
+                mail($destinatario, $assunto, $mensagem, $headers);
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

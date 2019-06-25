@@ -53,7 +53,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 form-group">
-                                    <label>Gera PDF:</label><br/>
+                                    <label>Gerar PDF:</label><br/>
                                     <label><input type="radio" name="nModoPDF" value="1"/> Sim </label>
                                     <label><input type="radio" name="nModoPDF" value="0" checked="checked" /> Não </label>
                                 </div>
@@ -77,7 +77,7 @@
                 <div class="col-md-12">
                     <section class="panel panel-black">
                         <header class="panel-heading">
-                            <h4 class="panel-title text-upercase"> <?php echo !empty($cooperado['nome_completo']) ? $cooperado['nome_completo'] : '';?>  <?php echo !empty($cooperado['nz']) ? "- NZ ".$cooperado['nz'] : '';?> </h4>
+                            <h4 class="panel-title text-upercase"> <?php echo !empty($cooperado['nome_completo']) ? $cooperado['nome_completo'] : '';?>  <?php echo !empty($cooperado['nz']) ? "- ".$cooperado['nz'] : '';?> </h4>
                         </header>
 
                         <article class="table-responsive">

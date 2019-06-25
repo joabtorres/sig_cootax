@@ -119,7 +119,7 @@
                                         $generos = array(array('genero' => 'Masculino'), array('genero' => 'Feminino'));
                                         foreach ($generos as $genero) {
                                             if ($genero['genero'] == $cooperado['cooperado']['genero']) {
-                                                echo '<option value="' . $genero['genero'] . '" checked="checked">' . $genero['genero'] . '</option>';
+                                                echo '<option value="' . $genero['genero'] . '" selected="selected">' . $genero['genero'] . '</option>';
                                             } else {
                                                 echo '<option value="' . $genero['genero'] . '">' . $genero['genero'] . '</option>';
                                             }

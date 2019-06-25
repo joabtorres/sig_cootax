@@ -12,7 +12,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="alert alert-success alert-dismissible fade in" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                Olá <strong><?php echo trim($_SESSION['usuario_sig_cootax']['nome']); ?></strong>, bem-vindo ao Sistema de Informação Gerencial da <?php echo $cooperativa['nome_completo'] . ' - ' . $cooperativa['nome_siglas'] ?>.
+                Olá <strong><?php echo trim($_SESSION['usuario_sig_cootax']['nome']); ?></strong>, bem-vindo ao Sistema de Informação Gerencial de Cooperativa de Táxi - SIGCOOT.
             </div>
         </div>
         <?php if ($this->checkUser() >= 2) { ?>

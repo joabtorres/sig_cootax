@@ -3,7 +3,7 @@
         <div class="col-sm-12 col-md-12 col-lg-12" id="pagina-header">
             <h2>Editar Usuário</h2>
             <ol class="breadcrumb">
-                <li><a href="<?php echo BASE_URL ?>/home"><i class="fa fa-tachometer"></i> Inicial</a></li>
+                <li><a href="<?php echo BASE_URL ?>/home"><i class="fa fa-tachometer-alt"></i> Inicial</a></li>
                 <li class="active"><i class="fa fa-user"></i> Editar Usuário</li>
             </ol>
         </div>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group <?php echo (isset($usuario_erro['email']['class'])) ? $usuario_erro['email']['class'] : ''; ?>">
                             <label for="cEmail" class="control-label">E-mail:* <?php echo (isset($usuario_erro['email']['msg'])) ? '<small><span class="glyphicon glyphicon-remove"></span> ' . $usuario_erro['email']['msg'] . ' </small>' : ''; ?></label>
-                            <input type="email" name="nEmail" id="cEmail" class="form-control" placeholder="Exemplo: joab.alencar@prodepa.pa.gov.br" value='<?php echo isset($usuario['email_usuario']) ? $usuario['email_usuario'] : ""; ?>' disabled="true"/>
+                            <input type="email" name="nEmail" id="cEmail" class="form-control" placeholder="Exemplo: joab.alencar@gmail.com" value='<?php echo isset($usuario['email_usuario']) ? $usuario['email_usuario'] : ""; ?>' disabled="true"/>
                         </div>
                         <div class="form-group <?php echo (isset($usuario_erro['senha']['class'])) ? $usuario_erro['senha']['class'] : ''; ?>">
                             <label for="cSenha" class="control-label">Nova Senha: <?php echo (isset($usuario_erro['senha']['msg'])) ? '<small><span class="glyphicon glyphicon-remove"></span> ' . $usuario_erro['senha']['msg'] . ' </small>' : ''; ?></label>
@@ -54,7 +54,7 @@
                     <div class="col-md-6">
                         <div class="form-group <?php echo (isset($usuario_info['cargo']['class'])) ? $usuario_info['cargo']['class'] : ''; ?>">
                             <label for="iCargo" class="control-label">Cargo: <?php echo (isset($usuario_info['cargo']['msg'])) ? '<small><span class="fa fa-info-circle"></span> ' . $usuario_info['cargo']['msg'] . ' </small>' : ''; ?></label>
-                            <input type="text" name="nCargo" id="iCargo" class="form-control"  placeholder="Exemplo: Estagiário" value="<?php echo isset($usuario['cargo_usuario']) ? $usuario['cargo_usuario'] : ""; ?>"/>
+                            <input type="text" name="nCargo" id="iCargo" class="form-control"  placeholder="Exemplo: Cooperado" value="<?php echo isset($usuario['cargo_usuario']) ? $usuario['cargo_usuario'] : ""; ?>"/>
                         </div>
                         <div class="form-group">
                             <span>Sexo:</span><br/>

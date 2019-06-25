@@ -130,7 +130,7 @@ class cadastrarController extends controller {
                 $cooperado['cooperado']['pai'] = addslashes($_POST['nPai']);
                 $cooperado['cooperado']['mae'] = addslashes($_POST['nMae']);
                 $cooperado['cooperado']['conjugue'] = addslashes($_POST['nConjuge']);
-                $cooperado['cooperado']['filhos'] =$_POST['nFilhos'];
+                $cooperado['cooperado']['filhos'] = $_POST['nFilhos'];
 
                 //imagem
                 if ((isset($_FILES['tImagem-1']) && $_FILES['tImagem-1']['error'] == 0) && (!isset($dados['cooperado_error']))) {
@@ -308,7 +308,7 @@ class cadastrarController extends controller {
                 $dados['financa'] = $financa;
                 if (!empty($_POST['nDescricao']) && !empty($_POST['nValor']) && !empty($_POST['nData'])) {
                     $financa['data'] = !empty($financa['data']) ? $this->formatDateBD($financa['data']) : null;
-                    $financa['valor'] = !empty($financa['valor'] ) ? $this->formatDinheiroBD($financa['valor']) : 0;
+                    $financa['valor'] = !empty($financa['valor']) ? $this->formatDinheiroBD($financa['valor']) : 0;
                     $cadFinanca = $crudModel->create('INSERT INTO sig_lucro (cod_cooperativa, descricao, valor, data, data_cadastro) VALUES (:cod_cooperativa, :descricao, :valor, :data, NOW())', $financa);
                     if ($cadFinanca) {
                         $_SESSION['financa_acao'] = true;
@@ -349,7 +349,7 @@ class cadastrarController extends controller {
                 $dados['financa'] = $financa;
                 if (!empty($_POST['nDescricao']) && !empty($_POST['nValor']) && !empty($_POST['nData'])) {
                     $financa['data'] = !empty($financa['data']) ? $this->formatDateBD($financa['data']) : null;
-                    $financa['valor'] = !empty($financa['valor'] ) ? $this->formatDinheiroBD($financa['valor']) : 0;
+                    $financa['valor'] = !empty($financa['valor']) ? $this->formatDinheiroBD($financa['valor']) : 0;
                     $cadFinanca = $crudModel->create('INSERT INTO sig_despesa (cod_cooperativa, descricao, valor, data, data_cadastro) VALUES (:cod_cooperativa, :descricao, :valor, :data, NOW())', $financa);
                     if ($cadFinanca) {
                         $_SESSION['financa_acao'] = true;
@@ -390,7 +390,7 @@ class cadastrarController extends controller {
                 $dados['financa'] = $financa;
                 if (!empty($_POST['nDescricao']) && !empty($_POST['nValor']) && !empty($_POST['nData'])) {
                     $financa['data'] = !empty($financa['data']) ? $this->formatDateBD($financa['data']) : null;
-                    $financa['valor'] = !empty($financa['valor'] ) ? $this->formatDinheiroBD($financa['valor']) : 0;
+                    $financa['valor'] = !empty($financa['valor']) ? $this->formatDinheiroBD($financa['valor']) : 0;
                     $cadFinanca = $crudModel->create('INSERT INTO sig_investimento (cod_cooperativa, descricao, valor, data, data_cadastro) VALUES (:cod_cooperativa, :descricao, :valor, :data, NOW())', $financa);
                     if ($cadFinanca) {
                         $_SESSION['financa_acao'] = true;
@@ -508,6 +508,105 @@ class cadastrarController extends controller {
                 }
             }
             $dados['usuario'] = $usuario;
+            $this->loadTemplate($view, $dados);
+        } else {
+            header("Location: /home");
+        }
+    }
+
+    /**
+     * Está função pertence a uma action do controle MVC, ela é responsável para carregar a view "cootaxiapp_motorista_cadastrar.php";
+     * @access public
+     * @author Joab Torres <joabtorres1508@gmail.com>
+     */
+    public function motorista() {
+        if ($this->checkUser() >= 3) {
+            $view = "cootaxiapp_motorista_cadastrar";
+            $dados = array();
+            $motorista = array();
+            if (isset($_POST['nSalvar'])) {
+                //nome
+                if (!empty($_POST['nNomeCompleto'])) {
+                    $motorista['nome'] = addslashes($_POST['nNomeCompleto']);
+                } else {
+                    $dados['motorista_erro']['nome']['msg'] = 'Informe o nome completo';
+                    $dados['motorista_erro']['nome']['class'] = 'has-error';
+                }
+                //email
+                if (!empty($_POST['nEmail'])) {
+                    $motorista['email'] = strtolower(addslashes($_POST['nEmail']));
+                } else {
+                    $dados['motorista_erro']['email']['msg'] = 'Informe o email';
+                    $dados['motorista_erro']['email']['class'] = 'has-error';
+                }
+                //senha
+                if (!empty($_POST['nSenha'])) {
+                    $motorista['senha'] = addslashes($_POST['nSenha']);
+
+                    //repetir senha
+                    if (!empty($_POST['nRepetirSenha'])) {
+                        $motorista['repetirSenha'] = addslashes($_POST['nRepetirSenha']);
+
+                        if ($motorista['senha'] != $motorista['repetirSenha']) {
+                            $dados['motorista_erro']['senha']['msg'] = "Os campos 'Senha' e 'Repetir Senha' não estão iguais! ";
+                            $dados['motorista_erro']['senha']['class'] = 'has-error';
+                            $dados['motorista_erro']['repetirSenha']['msg'] = "Os campos 'Senha' e 'Repetir Senha' não estão iguais! ";
+                            $dados['motorista_erro']['repetirSenha']['class'] = 'has-error';
+                        }
+                    } else {
+                        $dados['motorista_erro']['repetirSenha']['msg'] = 'Repita a senha';
+                        $dados['motorista_erro']['repetirSenha']['class'] = 'has-error';
+                    }
+                } else {
+                    $dados['motorista_erro']['senha']['msg'] = 'Informe a senha';
+                    $dados['motorista_erro']['senha']['class'] = 'has-error';
+                }
+                //repetir nz do veiculo
+                if (!empty($_POST['nNz'])) {
+                    $motorista['nz'] = strtoupper(addslashes($_POST['nNz']));
+                } else {
+                    $dados['motorista_erro']['nz']['msg'] = 'Informe a NZ do veículo';
+                    $dados['motorista_erro']['nz']['class'] = 'has-error';
+                }
+                //repetir modelo do veiculo
+                if (!empty($_POST['nModVeiculo'])) {
+                    $motorista['mod_veiculo'] = strtoupper(addslashes($_POST['nModVeiculo']));
+                } else {
+                    $dados['motorista_erro']['mod_veiculo']['msg'] = 'Informe o modelo do veículo';
+                    $dados['motorista_erro']['mod_veiculo']['class'] = 'has-error';
+                }
+                //repetir placa do veiculo
+                if (!empty($_POST['nPlacaVeiculo'])) {
+                    $motorista['placa_veiculo'] = strtoupper(addslashes($_POST['nPlacaVeiculo']));
+                } else {
+                    $dados['motorista_erro']['placa_veiculo']['msg'] = 'Informe a placa do veículo';
+                    $dados['motorista_erro']['placa_veiculo']['class'] = 'has-error';
+                }
+                //status
+                $motorista['status'] = addslashes($_POST['nStatus']);
+
+
+                $dados['motorista'] = $motorista;
+                if (isset($dados['motorista_erro']) && !empty($dados['motorista_erro'])) {
+                    $dados['erro']['msg'] = '<i class="fa fa-info-circle" aria-hidden="true"></i> Preencha todos os campos obrigatórios (*).';
+                    $dados['erro']['class'] = 'alert-danger';
+                } else {
+                    $dados["motorista"] = array();
+                    $dados['erro']['msg'] = '<i class="fa fa-check" aria-hidden="true"></i> Cadastro realizado com sucesso!';
+                    $dados['erro']['class'] = 'alert-success oculta';
+                    $_POST = array();
+                    echo "<script> var motorista={"
+                    . "id: null,"
+                    . "nome: '" . $motorista['nome'] . "',"
+                    . "email: '" . $motorista['email'] . "',"
+                    . "senha: '" . $motorista['senha'] . "',"
+                    . "nz: '" . $motorista['nz'] . "',"
+                    . "mod_veiculo: '" . $motorista['mod_veiculo'] . "',"
+                    . "placa_veiculo: '" . $motorista['placa_veiculo'] . "',"
+                    . "status: '" . $motorista['status'] ."'}</script>";
+                }
+            }
+
             $this->loadTemplate($view, $dados);
         } else {
             header("Location: /home");

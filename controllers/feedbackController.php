@@ -30,7 +30,7 @@ class feedbackController extends controller {
 
     private function email($mensagem) {
         $assunto = 'Feedback de - ' . $mensagem['nome'];
-        $destinatario = 'suporte@cootax.com.br';
+        $destinatario = 'contato@cootax.com.br';
         $mensagem = '<!DOCTYPE html>
 			<html lang="pt-br">
 			<head>
@@ -50,7 +50,7 @@ class feedbackController extends controller {
 			</html>';
         $headers = 'MIME-Version: 1.0' . "\r\n";
         $headers .= 'Content-Type: text/html; charset=UTF-8' . "\r\n";
-        $headers .= 'From: ' . $assunto . ' <suporte@cootax.com.br>' . "\r\n";
+        $headers .= 'From: ' . $assunto . ' <contato@cootax.com.br>' . "\r\n";
         $headers .= 'X-Mailer: PHP/' . phpversion();
         if (mail($destinatario, $assunto, $mensagem, $headers)) {
             return true;

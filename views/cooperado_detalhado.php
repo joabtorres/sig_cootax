@@ -246,13 +246,20 @@
                             <p><span class="text-destaque">Veículo:</span> <?php echo!empty($cooperado['veiculo']['veiculo']) ? $cooperado['veiculo']['veiculo'] : '' ?></p>
                         </div>
                         <div class="col-sm-6 col-md-3 ">
-                            <p><span class="text-destaque">Cor:</span> <?php echo!empty($cooperado['veiculo']['cor']) ? $cooperado['veiculo']['cor'] : '' ?></p>
+                            <p><span class="text-destaque">Placa:</span> <?php echo!empty($cooperado['veiculo']['veiculo']) ? $cooperado['veiculo']['placa'] : '' ?></p>
                         </div>
                         <div class="col-sm-6 col-md-3 ">
-                            <p><span class="text-destaque">Ano Modelo:</span> <?php echo!empty($cooperado['veiculo']['ano_modelo']) ? $cooperado['veiculo']['ano_modelo'] : '' ?></p>
+                            <p><span class="text-destaque">Cor:</span> <?php echo!empty($cooperado['veiculo']['cor']) ? $cooperado['veiculo']['cor'] : '' ?></p>
                         </div>
                     </div>
                     <!--fim row-->
+					<!--inicio row-->
+					<div class="row">
+                        <div class="col-sm-6 col-md-3 ">
+                            <p><span class="text-destaque">Ano Modelo:</span> <?php echo!empty($cooperado['veiculo']['ano_modelo']) ? $cooperado['veiculo']['ano_modelo'] : '' ?></p>
+                        </div>
+					</div>
+					<!-- fim row-->
                 </article>
             </section>
         </div>
@@ -263,7 +270,7 @@
                     <h4 class="panel-title"><i class="fa fa-calendar-alt  pull-left"></i> Mensalidade</h4>
                 </header>
                 <article class="panel-body">
-                    <span class="pull-right"><a href="<?php echo BASE_URL . '/cadastrar/mensalidade/' . $cooperado['cooperado']['cod_cooperado'] ?>" class="btn btn-sm btn-warning" title="Adicionar Histórico"><i class="fa fa-plus-circle"></i> Adicionar</a></span>
+                    <span class="pull-right"><a href="<?php echo BASE_URL . '/cadastrar/mensalidade/' . $cooperado['cooperado']['cod_cooperado'] ?>" class="btn btn-sm btn-warning" title="Adicionar Mensalidade"><i class="fa fa-plus-circle"></i> Adicionar</a></span>
                 </article>
                 <article class="table-responsive">
                     <table class="table table-striped table-bordered table-hover table-condensed">
@@ -388,7 +395,7 @@ if (isset($cooperado['mensalidades']) && !empty($cooperado['mensalidades'])):
                     </article>
                     <footer class="modal-footer">
                         <a class="btn btn-danger pull-left" href="<?php echo BASE_URL . '/excluir/mensalidade/' . $cooperado['cooperado']['cod_cooperado'] . '/' . $mensalidade['cod_mensalidade'] ?>"> <i class="fa fa-trash"></i> Excluir</a> 
-                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-close-alt"></i> Fechar</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
                     </footer>
                 </section>
             </article>
@@ -420,7 +427,7 @@ if (isset($cooperado['historicos']) && !empty($cooperado['historicos'])):
                     </article>
                     <footer class="modal-footer">
                         <a class="btn btn-danger pull-left" href="<?php echo BASE_URL . '/excluir/historico/' . $cooperado['cooperado']['cod_cooperado'] . '/' . $historico['cod_historico'] ?>"> <i class="fa fa-trash"></i> Excluir</a> 
-                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-close-alt"></i> Fechar</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
                     </footer>
                 </section>
             </article>

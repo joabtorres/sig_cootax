@@ -36,7 +36,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label>Gera PDF:</label><br/>
+                                    <label>Gerar PDF:</label><br/>
                                     <label><input type="radio" name="nModoPDF" value="1"/> Sim </label>
                                     <label><input type="radio" name="nModoPDF" value="0" checked="checked" /> Não </label>
                                 </div>
@@ -135,7 +135,7 @@ if (isset($financas) && is_array($financas)) :
                     </article>
                     <footer class="modal-footer">
                         <a class="btn btn-danger pull-left" href="<?php echo BASE_URL . '/excluir/lucro/' . $financa['cod'] ?>"> <i class="fa fa-trash"></i> Excluir</a> 
-                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-close-alt"></i> Fechar</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Fechar</button>
                     </footer>
                 </section>
             </article>

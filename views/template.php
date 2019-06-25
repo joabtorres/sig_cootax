@@ -8,32 +8,47 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/gif" href="<?php echo BASE_URL ?>/assets/imagens/icon-cootax.png" sizes="32x32" />
-        <meta property="ogg:title" content="COOTAX - SIG -Sistema de Informação Gerencial">
-        <meta property="ogg:description" content="COOTAX - SIG -Sistema de Informação Gerencial!">
-        <title> SIG - Sistema de Informação Gerencial (SIG) </title>
+        <meta property="ogg:title" content="COOTAX - SIGCOOT - Sistema de Informação Gerencial de Cooperativa de Táxi">
+        <meta property="ogg:description" content="COOTAX - SIGCOOT - Sistema de Informação Gerencial de Cooperativa de Táxi!">
+        <title> SIGCOOT - Sistema de Informação Gerencial de Cooperativa de Táxi </title>
         <!-- Bootstrap -->
         <link href="<?php echo BASE_URL ?>/assets/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="<?php echo BASE_URL ?>/assets/css/fontawesome-all.min.css">
         <link rel="stylesheet" href="<?php echo BASE_URL ?>/assets/css/estilo.min.css">
-        <link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">
+        <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 3): ?>
+            <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+            <script>
+                // Initialize Firebase
+                var config = {
+                    apiKey: "AIzaSyDDzJxLtLVRxYbrsGlVJpj4TQ_b8gtqKcI",
+                    authDomain: "cootaxi-e46dc.firebaseapp.com",
+                    databaseURL: "https://cootaxi-e46dc.firebaseio.com",
+                    projectId: "cootaxi-e46dc",
+                    storageBucket: "cootaxi-e46dc.appspot.com",
+                    messagingSenderId: "413411429620"
+                };
+                firebase.initializeApp(config);
+            </script>
+        <?php endif; ?>
 
         <!-- jQuery (obrigatório para plugins JavaScript do Bootstrap) -->
         <script src="<?php echo BASE_URL ?>/assets/js/jquery-3.1.1.min.js"></script>
         <script>
-            function mostrarConteudo() {
-                var elemento = document.getElementById("tela_load");
-                elemento.style.display = "none";
+                var base_url = "<?php echo BASE_URL ?>";
+                function mostrarConteudo() {
+                    var elemento = document.getElementById("tela_load");
+                    elemento.style.display = "none";
 
-                var elemento = document.getElementById("tela_sistema");
-                if (elemento) {
-                    elemento.style.display = "block";
-                }
+                    var elemento = document.getElementById("tela_sistema");
+                    if (elemento) {
+                        elemento.style.display = "block";
+                    }
 
-                var elemento = document.getElementById("interface_login");
-                if (elemento) {
-                    elemento.style.display = "block";
+                    var elemento = document.getElementById("interface_login");
+                    if (elemento) {
+                        elemento.style.display = "block";
+                    }
                 }
-            }
         </script>
     </head>
 
@@ -144,17 +159,17 @@
                                     <li>
                                         <a href="<?php echo BASE_URL ?>/relatorio/investimentos"><i class="fa fa-list"></i> Investimentos (R$)</a>
                                     </li>
-                                     <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 2) : ?>
-                                    <li>
-                                        <a href="<?php echo BASE_URL ?>/relatorio/financeiro"><i class="fa fa-chart-bar"></i> Financeiro (R$)</a>
-                                    </li>
+                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 2) : ?>
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/relatorio/financeiro"><i class="fa fa-chart-bar"></i> Financeiro (R$)</a>
+                                        </li>
                                     <?php endif; ?>
                                 </ul>
-                            </li>
+                            </li>							
                             <li>
                                 <a href="javascript:;" data-toggle="collapse" data-target="#menu_usuario"><i class="fa fa-users"></i> Usuários <i class="fa fa-fw fa-caret-down pull-right"></i></a>
                                 <ul id="menu_usuario" class="collapse">
-                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
+                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 3): ?>
                                         <li>
                                             <a href="<?php echo BASE_URL ?>/cadastrar/usuario"><i class="fa fa-user-plus"></i> Novo Usuário</a>
                                         </li>
@@ -163,14 +178,27 @@
                                     <li>
                                         <a href="<?php echo BASE_URL ?>/editar/usuario/<?php echo $_SESSION['usuario_sig_cootax']['cod'] ?>"><i class="fa fa-user"></i> Editar Perfil</a>
                                     </li>
-                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
+                                    <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 3): ?>
                                         <li>
                                             <a href="<?php echo BASE_URL ?>/usuario/index"><i class="fa fa-users"></i> Lista Usuários</a>
                                         </li>
                                     <?php endif; ?>
                                 </ul>
                             </li>
-                            <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] == 3): ?>
+                            <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 2) : ?>
+                                <li>
+                                    <a href="javascript:;" data-toggle="collapse" data-target="#menu_cootaxi_app"><i class="fa fa-mobile-alt "></i> Aplicativo<i class="fa fa-fw fa-caret-down pull-right"></i></a>
+                                    <ul id="menu_cootaxi_app" class="collapse">
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/cadastrar/motorista"><i class="fa fa-user-plus"></i> Motorista</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo BASE_URL ?>/cootaxiapp"><i class="fa fa-list-ul"></i> Lista de motoristas</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <?php endif; ?>
+                            <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 3): ?>
                                 <li>
                                     <a href="<?php echo BASE_URL . '/cooperativa/index/' . $this->getCodCooperativa() ?>"><i class="fa fa-home"></i> Cooperativa</a>
                                 </li>
@@ -210,8 +238,11 @@
         <script src="<?php echo BASE_URL ?>/assets/js/bootstrap.min.js"></script>
         <script src="<?php echo BASE_URL ?>/assets/js/jquery.maskedinput.min.js"></script>
         <script src="<?php echo BASE_URL ?>/assets/js/jquery.maskMoney.js"></script>
-        <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
         <script src="<?php echo BASE_URL ?>/assets/js/sig.js"  ></script>
+
+        <?php if (isset($_SESSION['usuario_sig_cootax']['nivel']) && $_SESSION['usuario_sig_cootax']['nivel'] >= 3): ?>
+            <script src="<?php echo BASE_URL ?>/assets/js/cootaxiapp.js"></script>
+        <?php endif; ?>
 
         <!--MODAL - ESTRUTURA BÁSICA-->
         <section class="modal fade" id="modal_recupera" tabindex="-1" role="dialog">

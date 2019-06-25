@@ -21,10 +21,8 @@ class operacaoController extends controller {
             $dados = array();
             $viewName = 'carteira_pdf';
             $crudModel = new crud_db();
-            $dados['cidade'] = $crudModel->read("SELECT * FROM sig_cooperativa WHERE cod=:cod", array('cod' => $this->getCodCooperativa()));
-            $dados['cidade'] = $dados['cidade'][0];
-            $dados['cooperado'] = $crudModel->read('SELECT coop.*, vei.nz, cart.data_inicial, cart.data_validade FROM sig_cooperado AS coop INNER JOIN sig_cooperado_veiculo AS vei INNER JOIN sig_cooperado_carteira AS cart WHERE coop.cod_cooperado=vei.cod_cooperado AND coop.cod_cooperado=cart.cod_cooperado AND coop.cod_cooperado=:cod', array('cod' => addslashes($cod_cooperado)));
-            $dados['cooperado'] = $dados['cooperado'][0];
+            $dados['cidade'] = $crudModel->read_specific("SELECT * FROM sig_cooperativa WHERE cod=:cod", array('cod' => $this->getCodCooperativa()));
+            $dados['cooperado'] = $crudModel->read_specific('SELECT coop.*, vei.nz, cart.data_inicial, cart.data_validade FROM sig_cooperado AS coop INNER JOIN sig_cooperado_veiculo AS vei INNER JOIN sig_cooperado_carteira AS cart WHERE coop.cod_cooperado=vei.cod_cooperado AND coop.cod_cooperado=cart.cod_cooperado AND coop.cod_cooperado=:cod', array('cod' => addslashes($cod_cooperado)));
             if (!empty($dados['cidade']) && !empty($dados['cooperado'])) {
                 $this->loadView($viewName, $dados);
             } else {
@@ -40,10 +38,8 @@ class operacaoController extends controller {
             $dados = array();
             $viewName = 'recibo_taxi_pdf';
             $crudModel = new crud_db();
-            $dados['cidade'] = $crudModel->read("SELECT * FROM sig_cooperativa WHERE cod=:cod", array('cod' => $this->getCodCooperativa()));
-            $dados['cidade'] = $dados['cidade'][0];
-            $dados['cooperado'] = $crudModel->read('SELECT coop.nome_completo,coop.cpf, coop.cod_cooperado, vei.nz, vei.placa, con.celular_1 FROM sig_cooperado AS coop INNER JOIN sig_cooperado_veiculo AS vei INNER JOIN sig_cooperado_contato AS con WHERE coop.cod_cooperado=vei.cod_cooperado AND coop.cod_cooperado=con.cod_cooperado AND coop.cod_cooperado=:cod', array('cod' => addslashes($cod_cooperado)));
-            $dados['cooperado'] = $dados['cooperado'][0];
+            $dados['cidade'] = $crudModel->read_specific("SELECT * FROM sig_cooperativa WHERE cod=:cod", array('cod' => $this->getCodCooperativa()));
+            $dados['cooperado'] = $crudModel->read_specific('SELECT coop.nome_completo,coop.cpf, coop.cod_cooperado, vei.nz, vei.placa, con.celular_1 FROM sig_cooperado AS coop INNER JOIN sig_cooperado_veiculo AS vei INNER JOIN sig_cooperado_contato AS con WHERE coop.cod_cooperado=vei.cod_cooperado AND coop.cod_cooperado=con.cod_cooperado AND coop.cod_cooperado=:cod', array('cod' => addslashes($cod_cooperado)));
             if (!empty($dados['cidade']) && !empty($dados['cooperado'])) {
                 $this->loadView($viewName, $dados);
             } else {
@@ -92,8 +88,7 @@ class operacaoController extends controller {
             $dados = array();
             $viewName = 'cartao_visita';
             $crudModel = new crud_db();
-            $dados['cooperado'] = $crudModel->read('SELECT coop.apelido, con.celular_1, con.celular_2 FROM sig_cooperado AS coop INNER JOIN sig_cooperado_contato as con WHERE coop.cod_cooperado=con.cod_cooperado AND coop.cod_cooperado=:cod', array('cod' => $cod_cooperado));
-            $dados['cooperado'] = $dados['cooperado'][0];
+            $dados['cooperado'] = $crudModel->read_specific('SELECT coop.apelido, con.celular_1, con.celular_2 FROM sig_cooperado AS coop INNER JOIN sig_cooperado_contato as con WHERE coop.cod_cooperado=con.cod_cooperado AND coop.cod_cooperado=:cod', array('cod' => $cod_cooperado));
             $this->loadView($viewName, $dados);
         }else{
             header("Location: /home");

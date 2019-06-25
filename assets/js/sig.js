@@ -33,7 +33,7 @@ $(document).ready(function () {
 });
 /**
  * @author Joab Torres Alencar
- * @description Está função submite o forumlário de buscar rápida que está no menu principal
+ * @description Está função submite o forumlário de buscar rápida que está no menu da direita
  */
 function submit_form_navbar() {
     if (document.nSearchSGL) {
@@ -77,7 +77,7 @@ if (document.getElementById("container-usuario-form")) {
             $("#viewImagem-1").attr('src', '/assets/imagens/user_feminino.png');
         }
         if ($("#iImagem-user").val() !== null) {
-            $("#iImagem-user").val(null)
+            $("#iImagem-user").val(null);
         }
     };
 }

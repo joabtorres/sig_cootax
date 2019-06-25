@@ -119,6 +119,6 @@ $html = ob_get_contents();
 ob_end_clean();
 $mpdf = new \Mpdf\Mpdf(['mode' => 'utf-8']);
 $mpdf->WriteHTML($html);
-$arquivo = 'cooperados_' . date('d_m_Y.') . 'pdf';
-$mpdf->Output($arquivo, 'I');
+$arquivo = 'cartao_de_visita_' . date('d_m_Y.') . 'pdf';
+$mpdf->Output($arquivo, 'D');
 ?>
